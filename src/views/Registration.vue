@@ -15,7 +15,7 @@
         <input type="password" required v-model="password">
         <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
-        <div class="submit" @click="handleSubmit">
+        <div class="submit">
             <button>Register</button>
         </div>
 </form>
@@ -34,6 +34,29 @@ export default {
     },
     methods: {
         async handleSubmit() {
+            try {
+                const response = await fetch('http://192.168.178.58:8090/api/v1/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fullName: this.username,
+                        email: this.email,
+                        username: this.username,
+                        password: this.password
+                    })
+                });
+                if (response.status === 409) {
+                    throw new Error('Username already taken.');
+                } else if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+                this.$router.push({ name: 'Login' });
+            } catch (error) {
+                this.passwordError = 'Invalid username or password';
+                console.error(error);
+            }
         }
     }
 
