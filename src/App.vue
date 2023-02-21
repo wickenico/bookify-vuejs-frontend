@@ -1,17 +1,14 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link :to="{ name: 'About' }">About</router-link> |
-    <router-link :to="{ name: 'Books' }">Books</router-link> |
-    <router-link :to="{ name: 'Favorites' }">Favorites</router-link> |
-    <router-link :to="{ name: 'Tags' }">Tags</router-link> |
-    <router-link :to="{ name: 'Search' }">Search</router-link> |
-    <router-link :to="{ name: 'Login' }">Login</router-link>
-  </div>
-  <router-view/>
+  <Navbar />
+  <router-view />
 </template>
 
 <script>
+import Navbar from './components/Navbar.vue'
+
+export default {
+  components: { Navbar }
+}
 
 </script>
 
@@ -30,28 +27,10 @@ body {
   background: #f2f2f2;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-#nav a.router-link-exact-active {
-  color: white;
-  background: teal;
-}
-
 button {
   margin: 0 10px;
   padding: 10px;
   border: none;
   border-radius: 4px;
 }
-
 </style>

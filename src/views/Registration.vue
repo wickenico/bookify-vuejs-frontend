@@ -18,7 +18,7 @@
         <div class="submit">
             <button>Register</button>
         </div>
-</form>
+    </form>
 </template>
 
 <script>
@@ -54,7 +54,7 @@ export default {
                 }
                 this.$router.push({ name: 'Login' });
             } catch (error) {
-                this.passwordError = 'Invalid username or password';
+                this.passwordError = error.message;
                 console.error(error);
             }
         }
