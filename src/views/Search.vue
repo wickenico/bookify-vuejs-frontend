@@ -7,6 +7,7 @@
         v-model="searchQuery" />
     </div>
     <button class="btn btn-primary" @click="searchBooks">Show me the Book <i class="fa fa-paper-plane"></i></button>
+    <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
     <div v-if="searchError" class="error">{{ searchError }}</div>
     <div v-if="searchResults">
       <h2>Search Results:</h2>
@@ -26,8 +27,13 @@
 </template>
 
 <script>
+import { StreamBarcodeReader } from "vue-barcode-reader";
+
 export default {
   name: 'Search',
+  components: {
+    StreamBarcodeReader,
+  },
   data() {
     return {
       searchQuery: '',
@@ -89,7 +95,13 @@ export default {
   } catch (error) {
     // handle error case, e.g. show error message
   }
-  }
+  },
+  onDecode (result) { console.log(result)
+  this.searchQuery = result;
+  this.searchBooks();
+  this.$refs.barcodeReader.stop();
+  },
+  onLoaded (result) { console.log(result) }
 }
 };
 </script>
