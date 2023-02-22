@@ -42,17 +42,17 @@ body {
 }
 
 button {
-    background: teal;
-    border: 0;
-    padding: 10px 20px;
-    margin-top: 20px;
-    color: white;
-    border-radius: 20px;
-    cursor: pointer;
+  background: teal;
+  border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 button:hover {
-    border: 1px solid black;
-    background: #003030;
+  border: 1px solid black;
+  background: #003030;
 }
 </style>

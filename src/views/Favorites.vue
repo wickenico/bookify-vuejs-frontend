@@ -4,18 +4,21 @@
     <div v-for="fav in favorites" :key="fav.id" class="favorite">
       <router-link :to="{ name: 'BookDetails', params: { id: fav.bookId } }">
         <div class="project">
-        <div class="actions">
-        <h2>{{ fav.book.title }} - {{ fav.book.id }}</h2>
-        <div class="icons">
+          <div class="actions">
+            <h2>{{ fav.book.title }} - {{ fav.book.id }}</h2>
+            <div class="icons">
               <span @click.prevent="deleteFavorite(fav)" class="material-icons">delete</span>
             </div>
           </div>
-        </div> 
+        </div>
       </router-link>
     </div>
   </div>
-  <div v-else>
+  <div v-else-if="loading">
     <p>Loading favorites...</p>
+  </div>
+  <div v-else>
+    <p>Nothing found.</p>
   </div>
 </template>
 
@@ -23,24 +26,25 @@
 export default {
   data() {
     return {
-      favorites: []
+      favorites: [],
+      loading: false,
     }
   },
   mounted() {
+    const headers = new Headers();
+    this.loading = true;
+    if (sessionStorage.getItem('credentials')) {
+      headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+      headers.append('Accept', 'application/json');
+    }
     fetch('http://192.168.178.58:8090/api/v1/favorites', {
-      headers: {
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-        'Accept': 'application/json',
-      }
+      headers: headers
     })
       .then(res => res.json())
       .then(async (data) => {
         const books = await Promise.all(data.map(fav => {
           return fetch(`http://192.168.178.58:8090/api/v1/books/${fav.bookId}`, {
-            headers: {
-              'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-              'Accept': 'application/json',
-            }
+            headers: headers
           }).then(res => res.json())
         }))
         this.favorites = data.map((fav, i) => {
@@ -49,6 +53,7 @@ export default {
             book: books[i]
           }
         })
+        this.loading = false;
       })
       .catch(err => console.log(err.message))
   },
@@ -58,17 +63,19 @@ export default {
       if (index > -1) {
         this.favorites.splice(index, 1);
       }
+      const headers = new Headers();
+      if (sessionStorage.getItem('credentials')) {
+        headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+        headers.append('Content-Type', 'application/json');
+      }
       fetch('http://192.168.178.58:8090/api/v1/favorites',
         {
           method: 'DELETE',
-          headers: {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-            'Content-Type': 'application/json',
-          },
+          headers: headers,
           body: JSON.stringify({
-          userId: 1,
-          bookId: fav.bookId
-        })
+            userId: 1,
+            bookId: fav.bookId
+          })
         })
         .catch(err => console.log(err.message))
     },
@@ -78,7 +85,6 @@ export default {
 </script>
 
 <style>
-
 .project:hover {
   color: white;
   background: teal;

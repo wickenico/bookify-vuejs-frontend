@@ -209,11 +209,13 @@ export default {
     }
   },
   mounted() {
+    const headers = new Headers();
+    if (sessionStorage.getItem('credentials')) {
+      headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+      headers.append('Accept', 'application/json');
+    }
     fetch('http://192.168.178.58:8090/api/v1/books/' + this.id, {
-      headers: {
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-        'Accept': 'application/json',
-      }
+      headers: headers
     })
       .then(res => res.json())
       .then(data => this.book = data)
@@ -224,12 +226,14 @@ export default {
   },
   methods: {
     async handleFavorite(id) {
+      const headers = new Headers();
+      if (sessionStorage.getItem('credentials')) {
+        headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+        headers.append('Content-Type', 'application/json');
+      }
       fetch('http://192.168.178.58:8090/api/v1/favorites', {
         method: 'POST',
-        headers: {
-          'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-          'Content-Type': 'application/json',
-        },
+        headers: headers,
         body: JSON.stringify({
           userId: 1,
           bookId: id
@@ -250,11 +254,12 @@ export default {
 
     async fetchFavorite() {
       try {
+        if (sessionStorage.getItem('credentials')) {
+          headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+          headers.append('Accept', '*/*');
+        }
         const response = await fetch('http://192.168.178.58:8090/api/v1/favorites/1/' + this.id, {
-          headers: {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-            'Accept': '*/*',
-          }
+          headers: headers
         });
         const data = await response.text();
         this.isFavorite = data;
@@ -264,12 +269,14 @@ export default {
     },
     async fetchBookTags() {
       try {
+        const headers = new Headers();
+        if (sessionStorage.getItem('credentials')) {
+          headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+          headers.append('Accept', 'application/json');
+        }
         const uri = "http://192.168.178.58:8090/api/v1/books/" + this.id + "/tags";
         const response = await fetch(uri, {
-          headers: {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-            'Accept': 'application/json',
-          }
+          headers: headers
         });
         const data = await response.json();
         this.bookTags = data;

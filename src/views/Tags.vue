@@ -13,6 +13,12 @@
             </router-link>
         </div>
     </div>
+    <div v-else-if="loading">
+    <p>Loading tags...</p>
+  </div>
+  <div v-else>
+    <p>Nothing found.</p>
+  </div>
 </template>
 
 <script>
@@ -21,6 +27,7 @@ export default {
         return {
             tags: [],
             searchQuery: "",
+            loading: false,
         }
     },
     computed: {
@@ -31,14 +38,18 @@ export default {
         },
     },
     mounted() {
+        this.loading = true;
+        const headers = new Headers();
+        if (sessionStorage.getItem('credentials')) {
+            headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+            headers.append('Accept', 'application/json');
+        }
         fetch('http://192.168.178.58:8090/api/v1/tags', {
-            headers: {
-                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-                'Accept': 'application/json',
-            }
+            headers: headers
         })
             .then(res => res.json())
             .then(data => this.tags = data)
+            .then(this.loading = false)
             .catch(err => console.log(err.message))
     }
 }

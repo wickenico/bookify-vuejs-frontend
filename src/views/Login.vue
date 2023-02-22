@@ -15,7 +15,7 @@
         </form>
 
         <p>Not a user yet? <router-link :to="{ name: 'Registration' }" class="signup">Sign up here </router-link></p>
-</div>
+    </div>
 </template>
 
 <script>
@@ -30,13 +30,12 @@ export default {
     },
     methods: {
         async handleSubmit() {
+            const headers = new Headers();
+            headers.append('Content-Type', 'application/json');
             try {
                 const response = await fetch('http://192.168.178.58:8090/api/v1/auth/login', {
                     method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6Im5pY28iLCJ1c2VySWQiOjAsImVtYWlsIjoibmljby53aWNrZXJzaGVpbTNAeWFob28uZGUifQ.Sr_NwrkZZ3bprSCsTATeeQL1OTIZhpBUhth46DTOMSFfk_BzwMXKL4qtns2zQyCeIMG4bPSxX_VSj6WaqZj7MA',
-                        'Content-Type': 'application/json'
-                    },
+                    headers: headers,
                     body: JSON.stringify({
                         username: this.username,
                         password: this.password
@@ -45,6 +44,9 @@ export default {
                 if (!response.ok) {
                     throw new Error('Login failed');
                 }
+                sessionStorage.setItem('credentials', btoa(this.username + ':' + this.password));
+                const expiration = new Date().getTime() + 60 * 60 * 1000 // expiration time: 1 hour
+                sessionStorage.setItem('expiration', expiration)
                 this.isLoggedIn = true;
                 this.$router.push({ name: 'home' });
             } catch (error) {

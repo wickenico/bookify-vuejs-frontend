@@ -23,13 +23,13 @@
     <div v-for="book in filteredBooks" :key="book.id">
       <router-link :to="{ name: 'BookDetails', params: { id: book.id } }">
         <div class="project"
-          :class="{ readStatusREAD: book.readStatus === 'READ', readStatusReading: book.readStatus === 'READING' , readStatusUnfinished: book.readStatus === 'UNFINISHED' }">
+          :class="{ readStatusREAD: book.readStatus === 'READ', readStatusReading: book.readStatus === 'READING', readStatusUnfinished: book.readStatus === 'UNFINISHED' }">
           <div class="actions">
-           <img :src="book.imageUrl" alt="Book Cover Image" class="book-cover">
+            <img :src="book.imageUrl" alt="Book Cover Image" class="book-cover">
             <h2>{{ book.title }}</h2>
             <div class="icons">
               <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
-              <span class="material-icons">edit</span>
+                <span class="material-icons">edit</span>
               </router-link>
               <span @click.prevent="deleteBook(book)" class="material-icons">delete</span>
             </div>
@@ -70,16 +70,18 @@ export default {
   methods: {
     async getBooks() {
       this.loading = true;
+      const headers = new Headers();
+      if (sessionStorage.getItem('credentials')) {
+        headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+        headers.append('Accept', 'application/json');
+      }
       const response = await fetch('http://192.168.178.58:8090/api/v1/books', {
-        headers: {
-          'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-          'Accept': 'application/json',
-        }
+        headers: headers
       })
       const data = await response.json();
       this.books = data;
       this.loading = false;
-      
+
     },
     clearFilters() {
       this.searchQuery = '';
@@ -90,13 +92,15 @@ export default {
       if (index > -1) {
         this.books.splice(index, 1);
       }
+      const headers = new Headers();
+      if (sessionStorage.getItem('credentials')) {
+        headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+        headers.append('Accept', 'application/json');
+      }
       fetch('http://192.168.178.58:8090/api/v1/books/' + book.id,
         {
           method: 'DELETE',
-          headers: {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-            'Accept': 'application/json',
-          },
+          headers: headers
         })
         .catch(err => console.log(err.message))
     },

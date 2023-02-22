@@ -3,8 +3,7 @@
     <h1>Search</h1>
     <div class="search-container form-group has-search">
       <span class="fa fa-search form-control-feedback"></span>
-      <input type="text" class="form-control" id="search-input" placeholder="ISBN eingeben..."
-        v-model="searchQuery" />
+      <input type="text" class="form-control" id="search-input" placeholder="ISBN eingeben..." v-model="searchQuery" />
     </div>
     <button class="btn btn-primary" @click="searchBooks">Show me the Book <i class="fa fa-paper-plane"></i></button>
     <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
@@ -13,17 +12,18 @@
       <h2>Search Results:</h2>
       <div>
         <div v-if="searchResults.imageUrl && searchResults.imageUrl !== 'null'" class="book-cover">
-        <img :src="searchResults.imageUrl" alt="Book Cover Image">
-      </div>
+          <img :src="searchResults.imageUrl" alt="Book Cover Image">
+        </div>
         <h3>{{ searchResults.title }}</h3>
         <p>{{ searchResults.author }}</p>
-        <button class="btn btn-primary" @click="addBook">Add book to library <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+        <button class="btn btn-primary" @click="addBook">Add book to library <i class="fa fa-floppy-o"
+            aria-hidden="true"></i></button>
       </div>
       <div v-if="bookAdded">
         <router-link :to="{ name: 'BookDetails', params: { id: bookAdded.id } }">
-      <h1>Book successfully added click here! </h1>
-      </router-link>
-    </div>
+          <h1>Book successfully added click here! </h1>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -44,26 +44,28 @@ export default {
       bookAdded: null,
     };
   },
-  methods:{
-        searchBooks() {
+  methods: {
+    searchBooks() {
       if (!this.searchQuery) {
         this.searchResults = null;
         return;
       }
+      const headers = new Headers();
+      if (sessionStorage.getItem('credentials')) {
+        headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+        headers.append('Content-Type', 'application/json');
+      }
       const apiUrl = `http://192.168.178.58:8090/api/v1/search?isbn=${this.searchQuery.replace(/-/g, '')}`;
       fetch(apiUrl, {
-      headers: {
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-        'Accept': 'application/json',
-      }
+        headers: headers
       })
         .then((response) => {
           if (response.ok) {
             return response.json();
-          } else if(response.status === 409){  
+          } else if (response.status === 409) {
             throw new Error('Book already exists.');
-          } else if(response.status === 404){  
-            throw new Error('Invalid ISBN.');  
+          } else if (response.status === 404) {
+            throw new Error('Invalid ISBN.');
           } else {
             throw new Error('Api response was not ok.');
           }
@@ -78,33 +80,36 @@ export default {
         });
     },
     async addBook() {
-  try {
-    const response = await fetch('http://192.168.178.58:8090/api/v1/books', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImNvbS5tYWF4Z3IiLCJ1c2VyTmFtZSI6IndpY2tlIiwidXNlcklkIjowLCJlbWFpbCI6Im5pY28ud2lja2Vyc2hlaW0zQHlhaG9vLmRlIn0.sVSfYDOrJBnl1tuzrJ4qUL59lpCsQbK5n0WxLIqOx5nq4XbmcFlkXw6azWOpblCDowfcYdYXx8OrpFoaYbMWHw',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.searchResults)
-    });
+      try {
+        const headers = new Headers();
+        if (sessionStorage.getItem('credentials')) {
+          headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+          headers.append('Content-Type', 'application/json');
+        }
+        const response = await fetch('http://192.168.178.58:8090/api/v1/books', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(this.searchResults)
+        });
 
-    if (response.ok) {
-      return this.bookAdded = await response.json();
-      // handle success case, e.g. show success message
-    } else {
-      // handle error case, e.g. show error message
-    }
-  } catch (error) {
-    // handle error case, e.g. show error message
+        if (response.ok) {
+          return this.bookAdded = await response.json();
+          // handle success case, e.g. show success message
+        } else {
+          // handle error case, e.g. show error message
+        }
+      } catch (error) {
+        // handle error case, e.g. show error message
+      }
+    },
+    onDecode(result) {
+      console.log(result)
+      this.searchQuery = result;
+      this.searchBooks();
+      this.$refs.barcodeReader.stop();
+    },
+    onLoaded(result) { console.log(result) }
   }
-  },
-  onDecode (result) { console.log(result)
-  this.searchQuery = result;
-  this.searchBooks();
-  this.$refs.barcodeReader.stop();
-  },
-  onLoaded (result) { console.log(result) }
-}
 };
 </script>
 
@@ -174,16 +179,15 @@ input:focus {
 }
 
 .error {
-        color: #ff0062;
-        margin-top: 10px;
-        font-size: 0.8em;
-        font-weight: bold;
-    }
+  color: #ff0062;
+  margin-top: 10px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
 
-    .book-cover img {
+.book-cover img {
   width: 200px;
   height: 300px;
   border: 1px solid black;
 }
-
 </style>

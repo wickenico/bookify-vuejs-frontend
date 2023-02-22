@@ -6,7 +6,8 @@
         <router-link :to="{ name: 'Favorites' }">Favorites</router-link> |
         <router-link :to="{ name: 'Tags' }">Tags</router-link> |
         <router-link :to="{ name: 'Search' }">Search</router-link> |
-        <router-link :to="{ name: 'Login' }">Login</router-link>
+        <router-link :to="{ name: 'Login' }">Login</router-link> |
+        <router-link :to="{ name: 'Logout' }">Logout</router-link>
     </nav>
 </template>
   

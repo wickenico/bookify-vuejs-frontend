@@ -11,6 +11,7 @@ import Tags from '../views/Tags.vue'
 import TagDetails from '../views/TagDetails.vue'
 import Search from '../views/Search.vue'
 import Login from '../views/Login.vue'
+import Logout from '../views/Logout.vue'
 import Registration from '../views/Registration.vue'
 
 const routes = [
@@ -74,16 +75,21 @@ const routes = [
     component: Login
   },
   {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout
+  },
+  {
     path: '/register',
     name: 'Registration',
     component: Registration
   },
-    // Catch all 404
-    {
-      path: '/:catchAll(.*)',
-      name: 'NotFound',
-      component: NotFound
-    },
+  // Catch all 404
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
+  },
 ]
 
 const router = createRouter({
@@ -91,18 +97,14 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   const isLoggedIn = checkIfUserIsLoggedIn() // replace this with your own function to check if the user is logged in
-//   if (to.path !== '/login' && !isLoggedIn) {
-//     // next('/login')
-//   } else {
-//     next()
-//   }
-// })
-
-// function checkIfUserIsLoggedIn () {
-//   // replace this with your own function to check if the user is logged in
-//   return false // for example purposes only
-// }
+router.beforeEach((to, from, next) => {
+  const credentials = sessionStorage.getItem('credentials')
+  const expiration = sessionStorage.getItem('expiration')
+  if (to.name !== 'Login' && (!credentials || expiration < new Date().getTime())) {
+    next('/login')
+  } else {
+    next()
+  }
+})
 
 export default router

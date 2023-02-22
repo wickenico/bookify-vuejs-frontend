@@ -34,12 +34,13 @@ export default {
     },
     methods: {
         async handleSubmit() {
+            const headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+
             try {
                 const response = await fetch('http://192.168.178.58:8090/api/v1/auth/register', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: headers,
                     body: JSON.stringify({
                         fullName: this.username,
                         email: this.email,
