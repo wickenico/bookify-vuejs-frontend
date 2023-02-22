@@ -25,6 +25,7 @@
         <div class="project"
           :class="{ readStatusREAD: book.readStatus === 'READ', readStatusReading: book.readStatus === 'READING' , readStatusUnfinished: book.readStatus === 'UNFINISHED' }">
           <div class="actions">
+           <img :src="book.imageUrl" alt="Book Cover Image" class="book-cover">
             <h2>{{ book.title }}</h2>
             <div class="icons">
               <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
@@ -281,5 +282,10 @@ h3 {
 
 .readStatusUnfinished {
   border-left: 4px solid blue;
+}
+
+.actions img {
+  width: 66px;
+  height: 100px;
 }
 </style>

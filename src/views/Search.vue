@@ -20,7 +20,9 @@
         <button class="btn btn-primary" @click="addBook">Add book to library <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
       </div>
       <div v-if="bookAdded">
-      <h1>Book successfully added!</h1>
+        <router-link :to="{ name: 'BookDetails', params: { id: bookAdded.id } }">
+      <h1>Book successfully added click here! </h1>
+      </router-link>
     </div>
     </div>
   </div>
