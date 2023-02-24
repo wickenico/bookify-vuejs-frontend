@@ -19,11 +19,10 @@
       @click="filterStatus = (filterStatus === 'READ' ? '' : 'READ')">
       <span><i class="fa fa-filter" aria-hidden="true"></i> READ</span>
     </div>
-    <div class="pill" :class="{ active: sortAscending === 'true' }"
-      @click="sortAscending = (sortAscending === 'true' ? '' : 'true')">
+    <div class="pill" :class="{ active: sortAscending }" @click="toggleSortAscending">
       <span><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> ASC</span>
     </div>
-    <div class="pill" :class="{ active: sortDescending }" @click="sortDescending = !sortDescending">
+    <div class="pill" :class="{ active: sortDescending }" @click="toggleSortDescending">
       <span><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i> DESC</span>
     </div>
     <button class="btn btn-light clear" @click="clearFilters">
@@ -70,7 +69,7 @@ export default {
       filterStatus: '',
       loading: false,
       isFavorite: false,
-      sortAscending: '',
+      sortAscending: false,
       sortDescending: false,
     }
   },
@@ -97,6 +96,7 @@ export default {
       if (this.sortAscending) {
         filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
       } else if (this.sortDescending) {
+        this.sortAscending = '';
         filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
       }
 
@@ -141,6 +141,14 @@ export default {
           headers: headers
         })
         .catch(err => console.log(err.message))
+    },
+    toggleSortAscending() {
+      this.sortAscending = true;
+      this.sortDescending = false;
+    },
+    toggleSortDescending() {
+      this.sortAscending = false;
+      this.sortDescending = true;
     },
   },
   mounted() {
@@ -249,35 +257,14 @@ input:focus {
 }
 
 .pill.active {
-  border: 2px solid black;
+  border: 2px solid burlywood;
   background: #003030;
+  color: burlywood;
 }
 
 .pill:hover {
   border: 2px solid black;
-}
-
-.pill-sort {
-  background: burlywood;
-  display: inline-block;
-  margin: 20px 10px 0 0;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 12px;
-  letter-spacing: 1px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
-  border: 2px solid teal;
-}
-
-.pill-sort:active {
-  background: rgb(139, 115, 85);
-  border: 2px solid teal;
-}
-
-.pill-sort:hover {
-  border: 2px solid black;
+  color: burlywood;
 }
 
 button {
