@@ -31,8 +31,8 @@ export default {
     }
   },
   mounted() {
-    const headers = new Headers();
     this.loading = true;
+    const headers = new Headers();
     if (sessionStorage.getItem('credentials')) {
       headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
       headers.append('Accept', 'application/json');

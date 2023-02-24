@@ -13,6 +13,7 @@ import Search from '../views/Search.vue'
 import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Registration from '../views/Registration.vue'
+import User from '../views/User.vue'
 
 const routes = [
   {
@@ -83,6 +84,12 @@ const routes = [
     path: '/register',
     name: 'Registration',
     component: Registration
+  },
+  {
+    path: '/user/:username?',
+    name: 'User',
+    component: User,
+    props: true
   },
   // Catch all 404
   {

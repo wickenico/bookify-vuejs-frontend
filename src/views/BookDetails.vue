@@ -5,7 +5,7 @@
         <img :src="book.imageUrl" alt="Book Cover Image">
       </div>
       <div v-else>
-        <img src="https://via.placeholder.com/200x300" alt="Book Cover Image">
+        <img src="https://via.placeholder.com/200x300?text=No+Cover" alt="Book Cover Image">
       </div>
       <div class="book-details">
         <h1>{{ book.title }}</h1>

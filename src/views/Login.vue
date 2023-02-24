@@ -47,6 +47,7 @@ export default {
                 sessionStorage.setItem('credentials', btoa(this.username + ':' + this.password));
                 const expiration = new Date().getTime() + 60 * 60 * 1000 // expiration time: 1 hour
                 sessionStorage.setItem('expiration', expiration)
+                sessionStorage.setItem('username', this.username)
                 this.isLoggedIn = true;
                 this.$router.push({ name: 'home' });
             } catch (error) {

@@ -49,8 +49,8 @@ export default {
         })
             .then(res => res.json())
             .then(data => this.tags = data)
+            .catch(err => console.log(err. essage))
             .then(this.loading = false)
-            .catch(err => console.log(err.message))
     }
 }
 </script>

@@ -25,7 +25,12 @@
         <div class="project"
           :class="{ readStatusREAD: book.readStatus === 'READ', readStatusReading: book.readStatus === 'READING', readStatusUnfinished: book.readStatus === 'UNFINISHED' }">
           <div class="actions">
-            <img :src="book.imageUrl" alt="Book Cover Image" class="book-cover">
+            <div v-if="book.imageUrl && book.imageUrl !== 'null'" class="book-cover">
+            <img :src="book.imageUrl" alt="Book Cover Image">
+          </div>
+          <div v-else>
+            <img src="https://via.placeholder.com/200x300?text=No+Cover" alt="Book Cover Image">
+          </div>
             <h2>{{ book.title }}</h2>
             <div class="icons">
               <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
