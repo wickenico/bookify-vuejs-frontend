@@ -7,30 +7,40 @@
       v-model="searchQuery" />
   </div>
   <div class="pill-container">
-    <div class="pill" :class="{ active: filterStatus === 'UNREAD' }" @click="filterStatus = 'UNREAD'">
+    <div class="pill" :class="{ active: filterStatus === 'UNREAD' }"
+      @click="filterStatus = (filterStatus === 'UNREAD' ? '' : 'UNREAD')">
       <span><i class="fa fa-filter" aria-hidden="true"></i> UNREAD</span>
     </div>
-    <div class="pill" :class="{ active: filterStatus === 'READING' }" @click="filterStatus = 'READING'">
+    <div class="pill" :class="{ active: filterStatus === 'READING' }"
+      @click="filterStatus = (filterStatus === 'READING' ? '' : 'READING')">
       <span><i class="fa fa-filter" aria-hidden="true"></i> READING</span>
     </div>
-    <div class="pill" :class="{ active: filterStatus === 'READ' }" @click="filterStatus = 'READ'">
+    <div class="pill" :class="{ active: filterStatus === 'READ' }"
+      @click="filterStatus = (filterStatus === 'READ' ? '' : 'READ')">
       <span><i class="fa fa-filter" aria-hidden="true"></i> READ</span>
+    </div>
+    <div class="pill" :class="{ active: sortAscending === 'true' }"
+      @click="sortAscending = (sortAscending === 'true' ? '' : 'true')">
+      <span><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> ASC</span>
+    </div>
+    <div class="pill" :class="{ active: sortDescending }" @click="sortDescending = !sortDescending">
+      <span><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i> DESC</span>
     </div>
     <button class="btn btn-light clear" @click="clearFilters">
       <i class="fa fa-times-circle"></i> Clear</button>
   </div>
   <div v-if="filteredBooks.length">
-    <div v-for="book in filteredBooks" :key="book.id">
+    <div v-for="book in sortedFilteredBooks" :key="book.id">
       <router-link :to="{ name: 'BookDetails', params: { id: book.id } }">
         <div class="project"
           :class="{ readStatusREAD: book.readStatus === 'READ', readStatusReading: book.readStatus === 'READING', readStatusUnfinished: book.readStatus === 'UNFINISHED' }">
           <div class="actions">
             <div v-if="book.imageUrl && book.imageUrl !== 'null'" class="book-cover">
-            <img :src="book.imageUrl" alt="Book Cover Image">
-          </div>
-          <div v-else>
-            <img src="https://via.placeholder.com/200x300?text=No+Cover" alt="Book Cover Image">
-          </div>
+              <img :src="book.imageUrl" alt="Book Cover Image">
+            </div>
+            <div v-else>
+              <img src="https://via.placeholder.com/200x300?text=No+Cover" alt="Book Cover Image">
+            </div>
             <h2>{{ book.title }}</h2>
             <div class="icons">
               <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
@@ -60,6 +70,8 @@ export default {
       filterStatus: '',
       loading: false,
       isFavorite: false,
+      sortAscending: '',
+      sortDescending: false,
     }
   },
   computed: {
@@ -70,6 +82,25 @@ export default {
       } else {
         return this.books.filter(book => book.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
       }
+    },
+    sortedFilteredBooks() {
+      const query = this.searchQuery.toLowerCase();
+      let filteredBooks = this.books.filter((book) =>
+        book.title.toLowerCase().includes(query)
+      );
+      if (this.filterStatus) {
+        filteredBooks = filteredBooks.filter(
+          (book) => book.readStatus === this.filterStatus
+        );
+      }
+
+      if (this.sortAscending) {
+        filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (this.sortDescending) {
+        filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
+      }
+
+      return filteredBooks;
     },
   },
   methods: {
@@ -91,6 +122,8 @@ export default {
     clearFilters() {
       this.searchQuery = '';
       this.filterStatus = '';
+      this.sortAscending = '';
+      this.sortDescending = false;
     },
     deleteBook(book) {
       const index = this.books.indexOf(book);
@@ -221,6 +254,29 @@ input:focus {
 }
 
 .pill:hover {
+  border: 2px solid black;
+}
+
+.pill-sort {
+  background: burlywood;
+  display: inline-block;
+  margin: 20px 10px 0 0;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  border: 2px solid teal;
+}
+
+.pill-sort:active {
+  background: rgb(139, 115, 85);
+  border: 2px solid teal;
+}
+
+.pill-sort:hover {
   border: 2px solid black;
 }
 
