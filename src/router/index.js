@@ -107,7 +107,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const credentials = sessionStorage.getItem('credentials')
   const expiration = sessionStorage.getItem('expiration')
-  if (to.name !== 'Login' && (!credentials || expiration < new Date().getTime())) {
+  if (to.name !== 'Login' && to.name !== 'Registration' && (!credentials || expiration < new Date().getTime())) {
     next('/login')
   } else {
     next()

@@ -40,7 +40,10 @@
             <div v-else>
               <img src="https://via.placeholder.com/200x300?text=No+Cover" alt="Book Cover Image">
             </div>
+            <div>
             <h2>{{ book.title }}</h2>
+            <p>{{ book.author }}</p>
+          </div>
             <div class="icons">
               <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
                 <span class="material-icons">edit</span>

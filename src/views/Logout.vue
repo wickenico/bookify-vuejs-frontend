@@ -13,9 +13,9 @@ export default {
 
     methods: {
         async handleSubmit() {
-            console.log("hier")
             sessionStorage.removeItem('expiration');
             sessionStorage.removeItem('credentials');
+            this.$router.push({ name: 'Login' });
         }
 }
 
