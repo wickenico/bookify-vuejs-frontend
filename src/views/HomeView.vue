@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" src="../assets/logo.png" style="width: 30%; height: 30%;">
     <h1>Bookify</h1>
     <div class="card-container">
     <div class="card">

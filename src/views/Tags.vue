@@ -1,26 +1,28 @@
 <template>
-    <h1>Tags</h1>
-    <div class="search-container form-group has-search">
-        <span class="fa fa-search form-control-feedback"></span>
-        <!-- <label>Suche </label> -->
-        <input type="text" class="form-control" id="search-input" placeholder="Suchbegriff eingeben..."
-            v-model="searchQuery" />
-    </div>
-    <div v-if="filteredTags.length">
-        <div v-for="tag in filteredTags" :key="tag.id" class="tag">
-            <router-link :to="{ name: 'TagDetails', params: { id: tag.id } }">
-                <h2>{{ tag.name }}</h2>
-            </router-link>
+    <div>
+        <h1>Tags</h1>
+        <div class="search-container form-group has-search">
+            <span class="fa fa-search form-control-feedback"></span>
+            <!-- <label>Suche </label> -->
+            <input type="text" class="form-control" id="search-input" placeholder="Suchbegriff eingeben..."
+                v-model="searchQuery" />
+        </div>
+        <div v-if="loading">
+            <p>Loading tags...</p>
+        </div>
+        <div v-else-if="filteredTags.length">
+            <div v-for="tag in filteredTags" :key="tag.id" class="tag">
+                <router-link :to="{ name: 'TagDetails', params: { id: tag.id } }">
+                    <h2>{{ tag.name }}</h2>
+                </router-link>
+            </div>
+        </div>
+        <div v-else>
+            <p>Nothing found.</p>
         </div>
     </div>
-    <div v-else-if="loading">
-    <p>Loading tags...</p>
-  </div>
-  <div v-else>
-    <p>Nothing found.</p>
-  </div>
 </template>
-
+  
 <script>
 export default {
     data() {
@@ -28,32 +30,37 @@ export default {
             tags: [],
             searchQuery: "",
             loading: false,
-        }
+        };
     },
     computed: {
         filteredTags() {
             const query = this.searchQuery.toLowerCase();
-            return this.tags.filter(tag => tag.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
-
+            return this.tags.filter((tag) =>
+                tag.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+            );
         },
     },
     mounted() {
         this.loading = true;
         const headers = new Headers();
-        if (sessionStorage.getItem('credentials')) {
-            headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
-            headers.append('Accept', 'application/json');
+        if (sessionStorage.getItem("credentials")) {
+            headers.append(
+                "Authorization",
+                "Basic " + sessionStorage.getItem("credentials")
+            );
+            headers.append("Accept", "application/json");
         }
-        fetch('http://192.168.178.58:8090/api/v1/tags', {
-            headers: headers
+        fetch("http://192.168.178.58:8090/api/v1/tags", {
+            headers: headers,
         })
-            .then(res => res.json())
-            .then(data => this.tags = data)
-            .catch(err => console.log(err. essage))
-            .then(this.loading = false)
-    }
-}
+            .then((res) => res.json())
+            .then((data) => (this.tags = data))
+            .catch((err) => console.log(err.message))
+            .finally(() => (this.loading = false));
+    },
+};
 </script>
+  
 
 <style scoped>
 .search-container {
