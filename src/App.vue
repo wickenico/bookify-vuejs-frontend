@@ -1,25 +1,26 @@
 <template>
-  <Navbar />
-  <!-- <button @click="redirect">Redirect</button>
-  <button @click="back">Go back</button>
-  <button @click="forward">Go forward</button> -->
-  <router-view />
+  <div :class="{ 'dark': isDarkMode }">
+    <Switch :isDarkMode="isDarkMode" @toggle-dark-mode="toggleDarkMode" />
+    <Navbar />
+    <router-view />
+  </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
+import Switch from './components/Switch.vue'
 
 export default {
-  components: { Navbar },
+  components: { Navbar, Switch },
+  data() {
+    return {
+      isDarkMode: false
+    }
+  },
   methods: {
-    redirect() {
-      this.$router.push({ name: 'home' })
-    },
-    back() {
-      this.$router.go(-1)
-    },
-    forward() {
-      this.$router.go(1)
+    toggleDarkMode() {
+      this.isDarkMode = !this.isDarkMode
+      document.body.classList.toggle('dark')
     }
   }
 }
@@ -54,5 +55,34 @@ button {
 button:hover {
   border: 1px solid black;
   background: #003030;
+}
+
+/* Styles for dark mode */
+.dark {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.dark-mode-switch {
+  color: #fff;
+}
+
+.dark-mode-switch:hover {
+  text-decoration: underline;
+}
+
+.dark body {
+  background: #1e1e1e;
+}
+
+.dark button {
+  background: #fff;
+  border-color: #ccc;
+  color: #fff;
+}
+
+.dark button:hover {
+  background: #ccc;
+  color: #1e1e1e;
 }
 </style>
