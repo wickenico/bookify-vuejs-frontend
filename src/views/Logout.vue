@@ -15,9 +15,10 @@ export default {
         async handleSubmit() {
             sessionStorage.removeItem('expiration');
             sessionStorage.removeItem('credentials');
+            sessionStorage.removeItem('username');
             this.$router.push({ name: 'Login' });
         }
-}
+    }
 
 }
 </script>

@@ -49,6 +49,7 @@ export default {
                 sessionStorage.setItem('expiration', expiration)
                 sessionStorage.setItem('username', this.username)
                 this.isLoggedIn = true;
+                this.$emit("customlogin", this.username)
                 this.$router.push({ name: 'home' });
             } catch (error) {
                 this.passwordError = 'Invalid username or password';

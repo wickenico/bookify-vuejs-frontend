@@ -26,7 +26,8 @@ export default {
     props: ['username'],
     data() {
         return {
-            user: ''
+            user: '',
+            username2: ''
         }
     },
     mounted() {
@@ -34,8 +35,9 @@ export default {
         if (sessionStorage.getItem('credentials')) {
             headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
             headers.append('Content-Type', 'application/json');
+            this.username2 = sessionStorage.getItem('username');
         }
-        fetch('http://192.168.178.58:8090/api/v1/users/details?username=' + this.username, {
+        fetch('http://192.168.178.58:8090/api/v1/users/details?username=' + this.username2, {
             headers: headers
         })
             .then(res => res.json())

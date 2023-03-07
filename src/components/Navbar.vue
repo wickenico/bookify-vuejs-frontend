@@ -1,22 +1,54 @@
 <template>
     <nav class="main-nav">
-        <router-link to="/">Home</router-link> |
-        <router-link :to="{ name: 'About' }">About</router-link> |
-        <router-link :to="{ name: 'Books' }">Books</router-link> |
-        <router-link :to="{ name: 'Favorites' }">Favorites</router-link> |
-        <router-link :to="{ name: 'Tags' }">Tags</router-link> |
-        <router-link :to="{ name: 'Search' }">Search</router-link> |
+        <router-link to="/">
+            <div style="display: inline-block; vertical-align: bottom;">
+                <span class="material-icons" style="vertical-align: bottom;">cottage</span>
+                <span style="vertical-align: bottom;"> Home</span>
+            </div>
+        </router-link> |
+        <router-link :to="{ name: 'About' }">
+            <div style="display: inline-block; vertical-align: bottom;">
+                <span class="material-icons" style="vertical-align: bottom;">psychology_alt</span>
+                <span style="vertical-align: bottom;"> About</span>
+            </div>
+        </router-link> |
+        <router-link :to="{ name: 'Books' }">
+            <div style="display: inline-block; vertical-align: bottom;">
+                <span class="material-icons" style="vertical-align: bottom;">library_books</span>
+                <span style="vertical-align: bottom;"> Books</span>
+            </div>
+        </router-link> |
+        <router-link :to="{ name: 'Favorites' }">
+            <div style="display: inline-block; vertical-align: bottom;">
+                <span class="material-icons" style="vertical-align: bottom;">favorite</span>
+                <span style="vertical-align: bottom;"> Favorites</span>
+            </div>
+        </router-link> |
+        <router-link :to="{ name: 'Tags' }">
+            <div style="display: inline-block; vertical-align: bottom;">
+                <span class="material-icons" style="vertical-align: bottom;">sell</span>
+                <span style="vertical-align: bottom;"> Tags</span>
+            </div>
+        </router-link> |
+        <router-link :to="{ name: 'Search' }">
+            <div style="display: inline-block; vertical-align: bottom;">
+                <span class="material-icons" style="vertical-align: bottom;">search</span>
+                <span style="vertical-align: bottom;"> Search</span>
+            </div>
+        </router-link> |
         <!-- <router-link :to="{ name: 'Login' }">Login</router-link> | -->
+        <!-- <router-link :to="{ name: 'User', params: { username: username } }"> -->
         <router-link :to="{ name: 'User', params: { username: username } }">
+
             <div style="display: inline-block; vertical-align: bottom;">
                 <span class="material-icons" style="vertical-align: bottom;">person</span>
-                <span style="vertical-align: bottom;">{{ username }}</span>
+                <span style="vertical-align: bottom;"> User</span>
             </div>
         </router-link> |
         <router-link :to="{ name: 'Logout' }">
             <div style="display: inline-block; vertical-align: bottom;">
                 <span class="material-icons" style="vertical-align: bottom;">logout</span>
-                <span style="vertical-align: bottom;"></span>
+                <span style="vertical-align: bottom;"> Logout</span>
             </div>
         </router-link>
     </nav>
