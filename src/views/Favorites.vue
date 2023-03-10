@@ -37,13 +37,13 @@ export default {
       headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
       headers.append('Accept', 'application/json');
     }
-    fetch('http://192.168.178.58:8090/api/v1/favorites', {
+    fetch(this.apiUrl + '/favorites', {
       headers: headers
     })
       .then(res => res.json())
       .then(async (data) => {
         const books = await Promise.all(data.map(fav => {
-          return fetch(`http://192.168.178.58:8090/api/v1/books/${fav.bookId}`, {
+          return fetch(`${this.$root.config.globalProperties.apiUrl}/books/${fav.bookId}`, {
             headers: headers
           }).then(res => res.json())
         }))
@@ -68,7 +68,7 @@ export default {
         headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
         headers.append('Content-Type', 'application/json');
       }
-      fetch('http://192.168.178.58:8090/api/v1/favorites',
+      fetch(this.apiUrl + '/favorites',
         {
           method: 'DELETE',
           headers: headers,

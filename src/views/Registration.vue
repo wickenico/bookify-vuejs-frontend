@@ -38,7 +38,7 @@ export default {
             headers.append('Content-Type', 'application/json');
 
             try {
-                const response = await fetch('http://192.168.178.58:8090/api/v1/auth/register', {
+                const response = await fetch(this.apiUrl + '/auth/register', {
                     method: 'POST',
                     headers: headers,
                     body: JSON.stringify({

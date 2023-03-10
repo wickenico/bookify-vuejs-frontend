@@ -33,7 +33,7 @@ export default {
             const headers = new Headers();
             headers.append('Content-Type', 'application/json');
             try {
-                const response = await fetch('http://192.168.178.58:8090/api/v1/auth/login', {
+                const response = await fetch(this.apiUrl + '/auth/login', {
                     method: 'POST',
                     headers: headers,
                     body: JSON.stringify({

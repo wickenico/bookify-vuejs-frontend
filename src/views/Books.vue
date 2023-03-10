@@ -114,7 +114,7 @@ export default {
         headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
         headers.append('Accept', 'application/json');
       }
-      const response = await fetch('http://192.168.178.58:8090/api/v1/books', {
+      const response = await fetch(this.apiUrl + '/books', {
         headers: headers
       })
       const data = await response.json();
@@ -138,7 +138,7 @@ export default {
         headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
         headers.append('Accept', 'application/json');
       }
-      fetch('http://192.168.178.58:8090/api/v1/books/' + book.id,
+      fetch(this.apiUrl + '/books/' + book.id,
         {
           method: 'DELETE',
           headers: headers

@@ -50,7 +50,7 @@ export default {
             );
             headers.append("Accept", "application/json");
         }
-        fetch("http://192.168.178.58:8090/api/v1/tags", {
+        fetch(this.apiUrl + "/tags", {
             headers: headers,
         })
             .then((res) => res.json())

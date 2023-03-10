@@ -214,7 +214,7 @@ export default {
       headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
       headers.append('Accept', 'application/json');
     }
-    fetch('http://192.168.178.58:8090/api/v1/books/' + this.id, {
+    fetch(this.apiUrl + '/books/' + this.id, {
       headers: headers
     })
       .then(res => res.json())
@@ -231,7 +231,7 @@ export default {
         headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
         headers.append('Content-Type', 'application/json');
       }
-      fetch('http://192.168.178.58:8090/api/v1/favorites', {
+      fetch(this.apiUrl + '/favorites', {
         method: 'POST',
         headers: headers,
         body: JSON.stringify({
@@ -258,7 +258,7 @@ export default {
           headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
           headers.append('Accept', '*/*');
         }
-        const response = await fetch('http://192.168.178.58:8090/api/v1/favorites/1/' + this.id, {
+        const response = await fetch(this.apiUrl + '/favorites/1/' + this.id, {
           headers: headers
         });
         const data = await response.text();
@@ -274,7 +274,7 @@ export default {
           headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
           headers.append('Accept', 'application/json');
         }
-        const uri = "http://192.168.178.58:8090/api/v1/books/" + this.id + "/tags";
+        const uri = this.apiUrl + "/books/" + this.id + "/tags";
         const response = await fetch(uri, {
           headers: headers
         });

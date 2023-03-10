@@ -19,7 +19,7 @@ export default {
                 headers.append('Accept', '*/*');
             }
             try {
-                const response = await fetch('http://192.168.178.58:8090/api/v1/session/logout', {
+                const response = await fetch(this.apiUrl + '/session/logout', {
                     method: 'GET',
                     headers: headers,
                 });

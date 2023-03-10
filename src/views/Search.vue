@@ -55,7 +55,7 @@ export default {
         headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
         headers.append('Content-Type', 'application/json');
       }
-      const apiUrl = `http://192.168.178.58:8090/api/v1/search?isbn=${this.searchQuery.replace(/-/g, '')}`;
+      const apiUrl = `${this.$root.config.globalProperties.apiUrl}/search?isbn=${this.searchQuery.replace(/-/g, '')}`;
       fetch(apiUrl, {
         headers: headers
       })
@@ -86,7 +86,7 @@ export default {
           headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
           headers.append('Content-Type', 'application/json');
         }
-        const response = await fetch('http://192.168.178.58:8090/api/v1/books', {
+        const response = await fetch(this.apiUrl + '/books', {
           method: 'POST',
           headers: headers,
           body: JSON.stringify(this.searchResults)

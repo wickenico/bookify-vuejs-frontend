@@ -24,7 +24,7 @@ export default {
       headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
       headers.append('Accept', 'application/json');
     }
-    fetch('http://192.168.178.58:8090/api/v1/favorites/' + this.id, {
+    fetch(this.apiUrl + '/favorites/' + this.id, {
       headers: headers
     })
       .then(res => res.json())

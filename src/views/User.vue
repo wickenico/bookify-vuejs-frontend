@@ -37,7 +37,7 @@ export default {
             headers.append('Content-Type', 'application/json');
             this.username2 = sessionStorage.getItem('username');
         }
-        fetch('http://192.168.178.58:8090/api/v1/users/details?username=' + this.username2, {
+        fetch(this.apiUrl + '/users/details?username=' + this.username2, {
             headers: headers
         })
             .then(res => res.json())

@@ -29,14 +29,14 @@ export default {
       headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
       headers.append('Accept', 'application/json');
     }
-    fetch('http://192.168.178.58:8090/api/v1/tags/' + this.id + '/books', {
+    fetch(this.apiUrl + '/tags/' + this.id + '/books', {
       headers: headers
     })
       .then(res => res.json())
       .then(data => this.books = data)
       .catch(err => console.log(err.message));
 
-    fetch('http://192.168.178.58:8090/api/v1/tags/' + this.id, {
+    fetch(this.apiUrl + '/tags/' + this.id, {
       headers: headers
     })
       .then(res => res.json())
