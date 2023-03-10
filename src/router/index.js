@@ -14,6 +14,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Registration from '../views/Registration.vue'
 import User from '../views/User.vue'
+import UserEdit from '../views/UserEdit.vue'
 
 const routes = [
   {
@@ -89,6 +90,12 @@ const routes = [
     path: '/user/:username?',
     name: 'User',
     component: User,
+    props: true
+  },
+  {
+    path: '/users/edit/:id',
+    name: 'UserEdit',
+    component: UserEdit,
     props: true
   },
   // Catch all 404

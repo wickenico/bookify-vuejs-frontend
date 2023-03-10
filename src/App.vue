@@ -1,6 +1,10 @@
 <template>
   <div :class="{ 'dark': isDarkMode }">
     <Switch :isDarkMode="isDarkMode" @toggle-dark-mode="toggleDarkMode" />
+    <div class="icons">
+      <span class="material-icons" @click="back">arrow_back</span>
+      <span class="material-icons" @click="forward">arrow_forward</span>
+    </div>
     <Navbar />
     <router-view />
   </div>
@@ -21,6 +25,12 @@ export default {
     toggleDarkMode() {
       this.isDarkMode = !this.isDarkMode
       document.body.classList.toggle('dark')
+    },
+    back() {
+      this.$router.go(-1)
+    },
+    forward() {
+      this.$router.go(1)
     }
   }
 }
@@ -84,5 +94,23 @@ button:hover {
 .dark button:hover {
   background: #ccc;
   color: #1e1e1e;
+}
+
+.icons {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.material-icons {
+  font-size: 20px;
+  margin-left: 10px;
+  color: #bbb;
+  cursor: pointer;
+}
+
+.material-icons:hover {
+  color: black;
 }
 </style>

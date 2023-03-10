@@ -81,13 +81,18 @@ export default {
     display: inline-block;
     text-decoration: none;
     margin: 0 10px;
-    color: black;
+    color: grey;
     font-size: 18px;
 }
 
 a.router-link-active {
     border-bottom: 2px solid teal;
     padding-bottom: 4px;
+    color: black;
+}
+
+a.router-link-active .material-icons {
+    color: black;
 }
 
 .material-icons {
@@ -99,5 +104,9 @@ a.router-link-active {
 
 .material-icons:hover {
     color: teal;
+}
+
+.material-icons:active {
+    color: black;
 }
 </style>

@@ -1,56 +1,72 @@
 <template>
-    <h1>User</h1>
     <div v-if="user">
-    <form @submit.prevent="handleSubmit">
+    <h1>User</h1>
+    <form @submit.prevent="updateUser">
         <label>Fullname: </label>
-        <input type="text" required v-model="user.fullName" readonly>
+        <input type="text" required v-model="user.fullName">
 
         <label>Email: </label>
-        <input type="email" required v-model="user.email" readonly>
+        <input type="email" required v-model="user.email">
 
-        <label>Username: </label>
-        <input type="text" required v-model="user.username" readonly>
-
-        <!-- <div v-if="passwordError" class="error">{{ passwordError }}</div> -->
-
-        <router-link :to="{ name: 'UserEdit', params: { id: user.id } }">
-            <div class="submit" @click="handleSubmit">
-                <button>Edit</button>
-            </div>
-        </router-link>
-
-        <div class="submit" @click="handleSubmit">
-            <button>Change Password</button>
+        <div class="submit">
+            <button>Save</button>
         </div>
     </form>
 </div>
 </template>
 
 <script>
+import router from '@/router';
 export default {
-    props: ['username'],
+    props: ['id'],
     data() {
         return {
-            user: '',
-            username2: ''
+            user: null
         }
     },
     mounted() {
         const headers = new Headers();
         if (sessionStorage.getItem('credentials')) {
             headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
-            headers.append('Content-Type', 'application/json');
-            this.username2 = sessionStorage.getItem('username');
+            headers.append('Accept', 'application/json');
         }
-        fetch(this.apiUrl + '/users/details?username=' + this.username2, {
+        fetch(this.apiUrl + '/users/' + this.id, {
             headers: headers
         })
             .then(res => res.json())
             .then(data => this.user = data)
-            .then(console.log(this.user))
             .catch(err => console.log(err.message))
-    }
+    },
+    methods: {
+        async updateUser() {
 
+            const user = {
+                fullName: this.user.fullName,
+                email: this.user.email,
+            };
+            const headers = new Headers();
+            if (sessionStorage.getItem('credentials')) {
+                headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+                headers.append('Content-Type', 'application/json');
+            }
+            fetch(this.apiUrl + '/users/edit/' + this.id, {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(user)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('User updated successfully:', data);
+                    this.user = data;
+
+                    this.$forceUpdate();
+                    router.push({ path: '/user/' + this.user.username })
+                })
+                .catch(error => {
+                    console.error('Error updating user:', error);
+                });
+        },
+    }
 
 }
 </script>

@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .switch-container {
   display: flex;
   justify-content: center;
@@ -32,6 +32,7 @@ export default {
   width: 40px;
   height: 24px;
   margin-right: 1px;
+  margin-top: 10px;
 }
 
 .switch input {
@@ -82,6 +83,11 @@ input:checked+.slider:before {
 
 .switch-icon {
   font-size: 24px;
-  color: teal;
+  color: #ccc;
+  margin-top: 10px;
+}
+
+.switch-icon:hover {
+  color: gold;
 }
 </style>
