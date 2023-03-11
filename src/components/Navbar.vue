@@ -85,6 +85,12 @@ export default {
     font-size: 18px;
 }
 
+.main-nav a:hover {
+    border-bottom: 2px solid teal;
+    padding-bottom: 4px;
+    color: black;
+}
+
 a.router-link-active {
     border-bottom: 2px solid teal;
     padding-bottom: 4px;

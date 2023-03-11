@@ -1,66 +1,83 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" style="width: 40%; height: 40%;">
+    <img alt="Vue logo" src="../assets/logo.png" style="width: 30%; height: 30%;">
     <!-- <h1>Bookify</h1> -->
     <div class="card-container">
-    <div class="card">
-      <div class="card__header">
-        <img class="card__image"
-          src="https://images.pexels.com/photos/3995842/pexels-photo-3995842.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          alt="Card Image">
+      <div class="card">
+        <div class="card__header">
+          <img class="card__image"
+            src="https://images.pexels.com/photos/3995842/pexels-photo-3995842.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="Card Image">
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Library</h3>
+          <p class="card__description">Manage your saved books.</p>
+          <button class="card__button" @click="goToBooks">Go to Books</button>
+        </div>
       </div>
-      <div class="card__body">
-        <h3 class="card__title">Library</h3>
-        <p class="card__description">Manage your saved books.</p>
-        <button class="card__button" @click="goToBooks">Go to Books</button>
+
+      <div class="card">
+        <div class="card__header">
+          <img class="card__image"
+            src="https://images.pexels.com/photos/7412069/pexels-photo-7412069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="Card Image">
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Search</h3>
+          <p class="card__description">Search a book by ISBN.</p>
+          <button class="card__button" @click="goToSearch">Go to Search</button>
+        </div>
       </div>
+
+      <div class="card">
+        <div class="card__header">
+          <img class="card__image"
+            src="https://images.pexels.com/photos/5054213/pexels-photo-5054213.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="Card Image">
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">User</h3>
+          <p class="card__description">Manage your user.</p>
+          <button class="card__button" @click="goToUser">Go to User</button>
+        </div>
+      </div>
+
     </div>
 
-    <div class="card">
-      <div class="card__header">
-        <img class="card__image"
-          src="https://images.pexels.com/photos/7412069/pexels-photo-7412069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          alt="Card Image">
-      </div>
-      <div class="card__body">
-        <h3 class="card__title">Search</h3>
-        <p class="card__description">Search a book by ISBN.</p>
-        <button class="card__button" @click="goToSearch">Go to Search</button>
-      </div>
+    <div class="version">
+      <p>Frontend version: {{ fe_version }}</p>
+      <p>Backend version: {{ be_version }}</p>
     </div>
 
-    <div class="card">
-      <div class="card__header">
-        <img class="card__image"
-          src="https://images.pexels.com/photos/5054213/pexels-photo-5054213.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          alt="Card Image">
-      </div>
-      <div class="card__body">
-        <h3 class="card__title">User</h3>
-        <p class="card__description">Manage your user.</p>
-        <button class="card__button" @click="goToUser">Go to User</button>
-      </div>
-    </div>
-    
   </div>
-</div>
 </template>
 
 <script>
 import router from '@/router';
+import pkg from '../../package.json';
 
 export default {
-  
+
   name: 'HomeView',
   data() {
     return {
-      username: ''
+      username: '',
+      fe_version: pkg.version,
+      be_version: ''
     }
   },
   components: {
   },
   mounted() {
-    this.username = sessionStorage.getItem('username');
+    this.username = sessionStorage.getItem('username'),
+      fetch(this.apiUrl + '/version')
+        .then(response => response.text())
+        .then(data => {
+          this.be_version = data;
+        })
+        .catch(error => {
+          console.error(error);
+        });
   },
   methods: {
     goToBooks() {
@@ -70,7 +87,7 @@ export default {
       router.push({ name: 'Search' });
     },
     goToUser() {
-      router.push({ path: '/user/' +  this.username})
+      router.push({ path: '/user/' + this.username })
     },
   },
 }
@@ -157,5 +174,9 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0px;
+}
+
+.version {
+  color: #bbb;
 }
 </style>

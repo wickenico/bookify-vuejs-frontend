@@ -7,6 +7,9 @@
     </div>
     <Navbar />
     <router-view />
+    <footer class="overlay">
+      &copy; 2023 Nico Wickersheim
+    </footer>
   </div>
 </template>
 
@@ -112,5 +115,17 @@ button:hover {
 
 .material-icons:hover {
   color: black;
+}
+
+.overlay {
+  position: fixed;
+  color: black;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: teal;
+  padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 999;
 }
 </style>
