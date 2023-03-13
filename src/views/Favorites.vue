@@ -43,7 +43,7 @@ export default {
       .then(res => res.json())
       .then(async (data) => {
         const books = await Promise.all(data.map(fav => {
-          return fetch(`${this.$root.config.globalProperties.apiUrl}/books/${fav.bookId}`, {
+          return fetch(this.apiUrl + `/books/${fav.bookId}`, {
             headers: headers
           }).then(res => res.json())
         }))
