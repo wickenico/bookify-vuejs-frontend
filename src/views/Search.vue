@@ -55,7 +55,8 @@ export default {
         headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
         headers.append('Content-Type', 'application/json');
       }
-      const apiUrl = `${this.$root.config.globalProperties.apiUrl}/search?isbn=${this.searchQuery.replace(/-/g, '')}`;
+      //const apiUrl = `${this.$root.config.globalProperties.apiUrl}/search?isbn=${this.searchQuery.replace(/-/g, '')}`;
+      const apiUrl = `https://fragrant-frost-2657.fly.dev/api/v1/search?isbn=${this.searchQuery.replace(/-/g, '')}`;
       console.log(apiUrl)
       fetch(apiUrl, {
         headers: headers
