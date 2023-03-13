@@ -56,10 +56,12 @@ export default {
         headers.append('Content-Type', 'application/json');
       }
       const apiUrl = `${this.$root.config.globalProperties.apiUrl}/search?isbn=${this.searchQuery.replace(/-/g, '')}`;
+      console.log(apiUrl)
       fetch(apiUrl, {
         headers: headers
       })
         .then((response) => {
+          console.log(response)
           if (response.ok) {
             return response.json();
           } else if (response.status === 409) {
