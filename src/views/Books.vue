@@ -1,5 +1,5 @@
 <template>
-  <h1>Books</h1>
+  <h1>Books ({{ filteredBooks.length }})</h1>
   <div class="search-container form-group has-search">
     <span class="fa fa-search form-control-feedback"></span>
     <!-- <label>Suche </label> -->
@@ -49,6 +49,7 @@
                 <span class="material-icons">edit</span>
               </router-link>
               <span @click.prevent="deleteBook(book)" class="material-icons">delete</span>
+              <span class="material-icons">more_vert</span>
             </div>
           </div>
         </div>

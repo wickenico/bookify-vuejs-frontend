@@ -8,7 +8,9 @@
     <Navbar />
     <router-view />
     <footer class="overlay">
-      &copy; 2023 Nico Wickersheim
+      &copy; 2023 Bookify (Nico Wickersheim) &bull;
+      <router-link to="/imprint">Imprint</router-link> &bull;
+      <router-link to="/contact">Contact</router-link>
     </footer>
   </div>
 </template>
@@ -53,6 +55,8 @@ export default {
 
 body {
   background: #f2f2f2;
+  margin-top: 100px;
+  /* Adjust this to match the height of your navbar */
 }
 
 button {

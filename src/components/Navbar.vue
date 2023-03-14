@@ -72,9 +72,21 @@ export default {
 </script>
   
 <style scoped>
-.main-nav {
+/* .main-nav {
     text-align: center;
     margin: 40px auto;
+} */
+
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: white;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .main-nav a {

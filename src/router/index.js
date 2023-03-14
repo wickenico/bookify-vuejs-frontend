@@ -15,6 +15,8 @@ import Logout from '../views/Logout.vue'
 import Registration from '../views/Registration.vue'
 import User from '../views/User.vue'
 import UserEdit from '../views/UserEdit.vue'
+import Imprint from '../views/Imprint.vue'
+import Contact from '../views/Contact.vue'
 
 const routes = [
   {
@@ -97,6 +99,16 @@ const routes = [
     name: 'UserEdit',
     component: UserEdit,
     props: true
+  },
+  {
+    path: '/imprint',
+    name: 'Imprint',
+    component: Imprint
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: Contact
   },
   // Catch all 404
   {
