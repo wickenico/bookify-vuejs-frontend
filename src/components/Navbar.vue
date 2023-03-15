@@ -50,6 +50,12 @@
                 <span class="material-icons" style="vertical-align: bottom;">logout</span>
                 <span style="vertical-align: bottom;"> Logout</span>
             </div>
+        </router-link> |
+        <router-link :to="{ name: 'BugReport' }">
+            <div style="display: inline-block; vertical-align: bottom;">
+                <span class="material-icons" style="vertical-align: bottom;">bug_report</span>
+                <span style="vertical-align: bottom;"> Bug Report</span>
+            </div>
         </router-link>
     </nav>
 </template>

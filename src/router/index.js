@@ -17,6 +17,7 @@ import User from '../views/User.vue'
 import UserEdit from '../views/UserEdit.vue'
 import Imprint from '../views/Imprint.vue'
 import Contact from '../views/Contact.vue'
+import BugReport from '../views/BugReport.vue'
 
 const routes = [
   {
@@ -109,6 +110,11 @@ const routes = [
     path: '/contact',
     name: 'Contact',
     component: Contact
+  },
+  {
+    path: '/bugreport',
+    name: 'BugReport',
+    component: BugReport
   },
   // Catch all 404
   {
