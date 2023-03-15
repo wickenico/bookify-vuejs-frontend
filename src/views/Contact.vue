@@ -26,10 +26,6 @@
 <script>
 import emailjs from '@emailjs/browser';
 
-const SERVICE_ID = 'service_6h1e9u2';
-const TEMPLATE_ID = 'template_pgndkcm';
-const PUBLIC_KEY = '2wibScKmdqdxRkolc';
-
 export default {
   data() {
     return {
@@ -41,7 +37,7 @@ export default {
   },
   methods: {
     sendEmail() {
-      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, this.$refs.form, PUBLIC_KEY)
+      emailjs.sendForm(process.env.VUE_APP_SERVICE_ID, process.env.VUE_APP_TEMPLATE_ID_CONTACT, this.$refs.form, process.env.VUE_APP_PUBLIC_KEY)
         .then((result) => {
           console.log('SUCCESS!', result.text);
           // Clear form fields after submission

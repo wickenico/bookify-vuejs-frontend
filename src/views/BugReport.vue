@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     sendBugReport() {
-      emailjs.sendForm(process.env.VUE_APP_SERVICE_ID, process.env.VUE_APP_TEMPLATE_ID, this.$refs.form, process.env.VUE_APP_PUBLIC_KEY)
+      emailjs.sendForm(process.env.VUE_APP_SERVICE_ID, process.env.VUE_APP_TEMPLATE_ID_BUG, this.$refs.form, process.env.VUE_APP_PUBLIC_KEY)
         .then((result) => {
           console.log('SUCCESS!', result.text);
           // Clear form fields after submission
