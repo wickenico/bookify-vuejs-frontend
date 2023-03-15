@@ -1,46 +1,46 @@
 <template>
-    <div>
-        <h1>Report a Bug</h1>
+  <div>
+    <h1>Report a Bug</h1>
 
-        <div class="github-issue-link">
-            <p>If you have encountered any issues or bugs with our web app, we encourage you to report them to us using the
-                form below. Your feedback is important to us as we strive to improve our app.</p>
-            <p>If you have found an issue or bug that you would like to report directly on Github, please use the following
-                link:</p>
-            <a href="https://github.com/wickenico/bookify-vuejs-frontend/issues/new" target="_blank">
-                <i class="material-icons left">bug_report</i>Report on Github</a>
-        </div>
-
-        <div class="contact-form">
-            <h3>Or use the form below to report a bug:</h3>
-            <form @submit.prevent="sendBugReport" ref="form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="from_name" v-model="name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="from_email" v-model="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">Bug Description:</label>
-                    <textarea id="description" name="description" rows="5" v-model="description" required></textarea>
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-            <div v-if="showSuccessMessage">
-            <p>Bugreport sent successfully - Thank You!</p>
-            </div>
-        </div>
+    <div class="github-issue-link">
+      <p>If you have encountered any issues or bugs with our web app, we encourage you to report them to us using the
+        form below. Your feedback is important to us as we strive to improve our app.</p>
+      <p>If you have found an issue or bug that you would like to report directly on Github, please use the following
+        link:</p>
+      <a href="https://github.com/wickenico/bookify-vuejs-frontend/issues/new" target="_blank">
+        <i class="material-icons">bug_report</i>Report on Github</a>
     </div>
+
+    <div class="contact-form">
+      <h3>Or use the form below to report a bug:</h3>
+      <form @submit.prevent="sendBugReport" ref="form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="from_name" v-model="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="from_email" v-model="email" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Bug Description:</label>
+          <textarea id="description" name="description" rows="5" v-model="description" required></textarea>
+        </div>
+        <div v-if="showSuccessMessage">
+          <h3>Bugreport sent successfully - Thank You!<i class="material-icons">celebration</i></h3>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
 </template>
   
 <script>
 import emailjs from '@emailjs/browser';
 
 export default {
-    data() {
+  data() {
     return {
       name: '',
       email: '',
@@ -68,13 +68,6 @@ export default {
 </script>
   
 <style scoped>
-
-contact-page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .form-group {
   margin-bottom: 20px;
 }
@@ -104,6 +97,7 @@ button {
   color: white;
   border-radius: 20px;
   cursor: pointer;
+  border: 1px solid teal;
 }
 
 button:hover {
@@ -129,11 +123,16 @@ a .material-icons {
 }
 
 a:hover {
-    color: #003030;
+  color: #003030;
 }
 
 a .material-icons:hover {
   color: #003030;
+}
+
+.material-icons {
+  font-size: 26px;
+  color: teal;
 }
 </style>
   
