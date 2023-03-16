@@ -9,7 +9,7 @@
             <input type="password" required v-model="password">
             <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
-            <div class="submit" @click="handleSubmit">
+            <div class="submit">
                 <button>Log In</button>
             </div>
         </form>
@@ -19,6 +19,10 @@
 </template>
 
 <script>
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
+
 export default {
     data() {
         return {
@@ -42,7 +46,20 @@ export default {
                     })
                 });
                 if (!response.ok) {
-                    throw new Error('Login failed');
+                    toast.error("Error logged in!", {
+                    position: "bottom-right",
+                    timeout: 5000,
+                    closeOnClick: true,
+                    pauseOnFocusLoss: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    draggablePercent: 0.6,
+                    showCloseButtonOnHover: false,
+                    closeButton: "button",
+                    icon: true,
+                    rtl: false
+                });
+                throw new Error('Login failed');
                 }
                 sessionStorage.setItem('credentials', btoa(this.username + ':' + this.password));
                 const expiration = new Date().getTime() + 60 * 60 * 1000 // expiration time: 1 hour
@@ -51,11 +68,26 @@ export default {
                 this.isLoggedIn = true;
                 this.$emit("customlogin", this.username)
                 this.$router.push({ name: 'home' });
+
+                toast.success("Successfully logged in!", {
+                    position: "bottom-right",
+                    timeout: 5000,
+                    closeOnClick: true,
+                    pauseOnFocusLoss: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    draggablePercent: 0.6,
+                    showCloseButtonOnHover: false,
+                    closeButton: "button",
+                    icon: true,
+                    rtl: false
+                });
+
             } catch (error) {
                 this.passwordError = 'Invalid username or password';
                 console.error(error);
             }
-        }
+        },
     }
 }
 </script>

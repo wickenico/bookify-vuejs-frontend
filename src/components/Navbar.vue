@@ -56,6 +56,12 @@
                 <span class="material-icons" style="vertical-align: bottom;">bug_report</span>
                 <span style="vertical-align: bottom;"> Bug Report</span>
             </div>
+        </router-link> |
+        <router-link :to="{ name: 'Settings' }">
+            <div style="display: inline-block; vertical-align: bottom;">
+                <span class="material-icons" style="vertical-align: bottom;">settings</span>
+                <span style="vertical-align: bottom;"> Settings</span>
+            </div>
         </router-link>
     </nav>
 </template>
