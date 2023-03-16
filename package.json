@@ -1,10 +1,11 @@
 {
   "name": "bookify-vuejs-frontend",
-  "version": "0.2.0",
+  "version": "0.0.0-development",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "@emailjs/browser": "^3.10.0",
@@ -19,6 +20,11 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "semantic-release": "^20.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wickenico/bookify-vuejs-frontend.git"
   }
 }
