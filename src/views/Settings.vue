@@ -8,6 +8,7 @@
                 <li :class="{ active: activeTab === 'security' }" @click="activeTab = 'security'">Security</li>
                 <li :class="{ active: activeTab === 'notifications' }" @click="activeTab = 'notifications'">Notifications
                 </li>
+                <li :class="{ active: activeTab === 'info' }" @click="activeTab = 'info'">Info</li>
             </ul>
         </div>
         <div class="settings-content">
@@ -28,6 +29,14 @@
                 <h2>Notification Settings</h2>
                 <!-- notification settings form goes here -->
             </div>
+            <div v-if="activeTab === 'info'">
+                <h2>Info Settings</h2>
+                <!-- info settings form goes here -->
+                <div class="version">
+                    <p>Frontend version: {{ fe_version }}</p>
+                    <p>Backend version: {{ be_version }}</p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -41,7 +50,18 @@ export default {
     data() {
         return {
             activeTab: 'profile',
-        }
+            fe_version: '',
+            be_version: '',
+            apiUrl: 'https://api.github.com/repos/wickenico/bookify-vuejs-frontend/releases/latest',
+        };
+    },
+    mounted() {
+        fetch(this.apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                this.fe_version = data.tag_name;
+            })
+            .catch(error => console.log(error));
     },
     methods: {
         showToast() {
@@ -99,5 +119,10 @@ export default {
 .settings-content {
     flex: 1;
     padding: 20px;
-}</style>
+}
+
+.version {
+    color: #bbb;
+}
+</style>
   

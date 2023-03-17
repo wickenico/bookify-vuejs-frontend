@@ -45,7 +45,6 @@
     </div>
 
     <div class="version">
-      <p>Frontend version: {{ fe_version }}</p>
       <p>Backend version: {{ be_version }}</p>
     </div>
 
@@ -62,7 +61,6 @@ export default {
   data() {
     return {
       username: '',
-      fe_version: pkg.version,
       be_version: ''
     }
   },
