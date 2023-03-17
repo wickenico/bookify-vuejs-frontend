@@ -9,8 +9,8 @@
     <router-view />
     <footer class="overlay">
       &copy; 2023 Bookify (Nico Wickersheim) &bull;
-      <router-link to="/imprint">Imprint</router-link> &bull;
-      <router-link to="/contact">Contact</router-link>
+      <router-link to="/imprint" class="footer-link">Imprint</router-link> &bull;
+      <router-link to="/contact" class="footer-link">Contact</router-link>
     </footer>
   </div>
 </template>
@@ -131,5 +131,13 @@ button:hover {
   padding: 10px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
   z-index: 999;
+}
+
+.footer-link {
+  color: #f2f2f2;
+}
+
+.footer-link:hover {
+  color: #bbb;
 }
 </style>
