@@ -3,7 +3,7 @@
     <h1>Search</h1>
     <div class="search-container form-group has-search">
       <span class="fa fa-search form-control-feedback"></span>
-      <input type="text" class="form-control" id="search-input" placeholder="ISBN eingeben..." v-model="searchQuery" />
+      <input type="text" class="form-control" id="search-input" placeholder="Type ISBN..." v-model="searchQuery" />
     </div>
     <button class="btn btn-primary" @click="searchBooks">Show me the Book <i class="fa fa-paper-plane"></i></button>
     <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
@@ -127,10 +127,16 @@ export default {
   margin-bottom: 10px;
 }
 
-.btn {
+button {
   max-width: 420px;
   width: 100%;
   margin-bottom: 30px;
+  border: 1px solid teal;
+}
+
+button:hover {
+  border: 1px solid black;
+  background: #003030;
 }
 
 .has-search .form-control {

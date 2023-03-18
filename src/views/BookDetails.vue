@@ -54,8 +54,7 @@
             <span class="star-zero">★</span>
           </template>
         </div>
-        <span @click.prevent="handleFavorite(book.id)" class="material-icons"
-          :class="{ red: isFavorite === 'true' }">favorite</span>
+        <span class="material-icons" :class="{ red: isFavorite === 'true' }">favorite</span>
         <div v-if="bookError" class="error">{{ bookError }}</div>
       </div>
     </div>
@@ -254,6 +253,7 @@ export default {
 
     async fetchFavorite() {
       try {
+        const headers = new Headers();
         if (sessionStorage.getItem('credentials')) {
           headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
           headers.append('Accept', '*/*');
@@ -331,6 +331,7 @@ export default {
   display: flex;
   align-items: center;
   background: #ccc;
+  margin-top: 10px;
 }
 
 .book-cover {

@@ -104,7 +104,7 @@ export default {
 .main-nav a {
     display: inline-block;
     text-decoration: none;
-    margin: 0 10px;
+    margin: 0 5px;
     color: grey;
     font-size: 18px;
 }

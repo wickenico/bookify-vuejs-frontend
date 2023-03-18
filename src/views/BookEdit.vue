@@ -232,6 +232,10 @@
   
 <script>
 import router from '@/router';
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
+
 export default {
     props: ['id'],
     data() {
@@ -279,6 +283,19 @@ export default {
                         throw new Error('Book is already a favorite.')
                     }
                     this.fetchFavorite()
+                    toast.success("Book is now a favorite!", {
+                    position: "bottom-right",
+                    timeout: 2000,
+                    closeOnClick: true,
+                    pauseOnFocusLoss: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    draggablePercent: 0.6,
+                    showCloseButtonOnHover: false,
+                    closeButton: "button",
+                    icon: true,
+                    rtl: false
+                });
                     return response.json();
                 })
                 .catch((error) => {
@@ -440,6 +457,7 @@ export default {
     display: flex;
     align-items: center;
     background: #ccc;
+    margin-top: 10px;
 }
 
 .book-cover {
