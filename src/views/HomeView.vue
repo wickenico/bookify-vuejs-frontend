@@ -41,19 +41,12 @@
           <button class="card__button" @click="goToUser">Go to User</button>
         </div>
       </div>
-
     </div>
-
-    <div class="version">
-      <p>Backend version: {{ be_version }}</p>
-    </div>
-
   </div>
 </template>
 
 <script>
 import router from '@/router';
-import pkg from '../../package.json';
 
 export default {
 
@@ -67,15 +60,6 @@ export default {
   components: {
   },
   mounted() {
-    this.username = sessionStorage.getItem('username'),
-      fetch(this.apiUrl + '/version')
-        .then(response => response.text())
-        .then(data => {
-          this.be_version = data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
   },
   methods: {
     goToBooks() {

@@ -34,7 +34,7 @@
                 <!-- info settings form goes here -->
                 <div class="version">
                     <p>Frontend version: {{ fe_version }}</p>
-                    <p>Backend version: {{ be_version }}</p>
+                    <p>Backend version: v{{ be_version }}</p>
                 </div>
             </div>
         </div>
@@ -52,22 +52,31 @@ export default {
             activeTab: 'profile',
             fe_version: '',
             be_version: '',
-            apiUrl: 'https://api.github.com/repos/wickenico/bookify-vuejs-frontend/releases/latest',
+            apiUrlGithub: 'https://api.github.com/repos/wickenico/bookify-vuejs-frontend/releases/latest',
         };
     },
     mounted() {
-        fetch(this.apiUrl)
+        fetch(this.apiUrlGithub)
             .then(response => response.json())
             .then(data => {
                 this.fe_version = data.tag_name;
             })
             .catch(error => console.log(error));
+        this.username = sessionStorage.getItem('username'),
+            fetch(this.apiUrl + '/version')
+                .then(response => response.text())
+                .then(data => {
+                    this.be_version = data;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
     },
     methods: {
         showToast() {
             toast.info("I'm a toast!", {
                 position: "bottom-right",
-                timeout: 5000,
+                timeout: 3000,
                 closeOnClick: true,
                 pauseOnFocusLoss: true,
                 pauseOnHover: true,

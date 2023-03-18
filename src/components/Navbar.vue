@@ -6,12 +6,12 @@
                 <span style="vertical-align: bottom;"> Home</span>
             </div>
         </router-link> |
-        <router-link :to="{ name: 'About' }">
+        <!-- <router-link :to="{ name: 'About' }">
             <div style="display: inline-block; vertical-align: bottom;">
                 <span class="material-icons" style="vertical-align: bottom;">psychology_alt</span>
                 <span style="vertical-align: bottom;"> About</span>
             </div>
-        </router-link> |
+        </router-link> | -->
         <router-link :to="{ name: 'Books' }">
             <div style="display: inline-block; vertical-align: bottom;">
                 <span class="material-icons" style="vertical-align: bottom;">library_books</span>
@@ -45,12 +45,6 @@
                 <span style="vertical-align: bottom;"> User</span>
             </div>
         </router-link> |
-        <router-link :to="{ name: 'Logout' }">
-            <div style="display: inline-block; vertical-align: bottom;">
-                <span class="material-icons" style="vertical-align: bottom;">logout</span>
-                <span style="vertical-align: bottom;"> Logout</span>
-            </div>
-        </router-link> |
         <router-link :to="{ name: 'BugReport' }">
             <div style="display: inline-block; vertical-align: bottom;">
                 <span class="material-icons" style="vertical-align: bottom;">bug_report</span>
@@ -62,7 +56,13 @@
                 <span class="material-icons" style="vertical-align: bottom;">settings</span>
                 <span style="vertical-align: bottom;"> Settings</span>
             </div>
-        </router-link>
+        </router-link> |
+        <router-link :to="{ name: 'Logout' }">
+            <div style="display: inline-block; vertical-align: bottom;">
+                <span class="material-icons" style="vertical-align: bottom;">logout</span>
+                <span style="vertical-align: bottom;"> Logout</span>
+            </div>
+        </router-link> 
     </nav>
 </template>
   
