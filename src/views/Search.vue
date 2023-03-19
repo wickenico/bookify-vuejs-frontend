@@ -6,7 +6,6 @@
       <input type="text" class="form-control" id="search-input" placeholder="Type ISBN..." v-model="searchQuery" />
     </div>
     <button class="btn btn-primary" @click="searchBooks">Show me the Book <i class="fa fa-paper-plane"></i></button>
-    <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
     <div v-if="searchError" class="error">{{ searchError }}</div>
     <div v-if="searchResults">
       <h2>Search Results:</h2>
@@ -19,17 +18,22 @@
         <button class="btn btn-primary" @click="addBook">Add book to library <i class="fa fa-floppy-o"
             aria-hidden="true"></i></button>
       </div>
-      <div v-if="bookAdded">
+      <div v-if="bookAdded" class="book-added">
         <router-link :to="{ name: 'BookDetails', params: { id: bookAdded.id } }">
           <h1>Book successfully added click here! </h1>
         </router-link>
+        <button class="btn btn-primary" @click="resetPage">Start new Search <i class="fa fa-refresh"
+            aria-hidden="true"></i></button>
       </div>
     </div>
+    <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
   </div>
 </template>
 
 <script>
 import { StreamBarcodeReader } from "vue-barcode-reader";
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
 export default {
   name: 'Search',
@@ -95,6 +99,19 @@ export default {
         });
 
         if (response.ok) {
+          toast.success("Book successfully added to library!", {
+            position: "bottom-right",
+            timeout: 2000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false
+          });
           return this.bookAdded = await response.json();
           // handle success case, e.g. show success message
         } else {
@@ -110,7 +127,10 @@ export default {
       this.searchBooks();
       this.$refs.barcodeReader.stop();
     },
-    onLoaded(result) { console.log(result) }
+    onLoaded(result) { console.log(result) },
+    resetPage() {
+      window.location.reload();
+    }
   }
 };
 </script>
@@ -197,5 +217,22 @@ input:focus {
   width: 200px;
   height: 300px;
   border: 1px solid black;
+}
+
+.book-added {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 2px solid #42b983;
+  border-radius: 10px;
+  background-color: #f0fff4;
+  color: #42b983;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.book-added a {
+  color: #42b983;
 }
 </style>
