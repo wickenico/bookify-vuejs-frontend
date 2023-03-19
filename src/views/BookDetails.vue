@@ -59,9 +59,23 @@
       </div>
     </div>
     <div class="book">
-      <div class="book-attribute">
+      <!-- <div class="book-attribute">
         <div class="label">{{ "ID" }}</div>
         <div class="value">{{ book.id }}</div>
+      </div> -->
+
+      <div class="book-attribute">
+        <div class="label">{{ "Options" }}</div>
+        <div>
+          <div class="pill">
+            <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
+              <span class="bookTag-pill">Edit book</span>
+            </router-link>
+          </div>
+          <div class="pill">
+            <span class="bookTag-pill" @click.prevent="deleteBook(book)">Delete book</span>
+          </div>
+        </div>
       </div>
 
       <div class="book-separator"></div>
@@ -197,6 +211,10 @@
 </template>
 
 <script>
+import router from '@/router';
+import { useToast } from "vue-toastification";
+const toast = useToast();
+
 export default {
   props: ['id'],
   data() {
@@ -284,7 +302,39 @@ export default {
         console.log(error.message);
       }
     },
+    async deleteBook(book) {
+      try {
+        const headers = new Headers();
+        if (sessionStorage.getItem('credentials')) {
+          headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+          headers.append('Accept', 'application/json');
+        }
+        const response = await fetch(this.apiUrl + '/books/' + book.id,
+          {
+            method: 'DELETE',
+            headers: headers
+          })
 
+        if (response.ok) {
+          toast.success("Book successfully deleted!", {
+            position: "bottom-right",
+            timeout: 2000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            closeButton: "button",
+            icon: true,
+            rtl: false
+          });
+          router.push({ path: '/books' })
+        }
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
   }
 }
 </script>
