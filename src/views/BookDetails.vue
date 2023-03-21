@@ -67,13 +67,19 @@
       <div class="book-attribute">
         <div class="label">{{ "Options" }}</div>
         <div>
-          <div class="pill">
+          <div class="option-pill">
             <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
-              <span class="bookTag-pill">Edit book</span>
+              <span class="optionButton-pill">Edit book</span>
             </router-link>
           </div>
-          <div class="pill">
-            <span class="bookTag-pill" @click.prevent="deleteBook(book)">Delete book</span>
+          <div class="option-pill">
+            <span class="optionButton-pill" @click.prevent="deleteBook(book)">Delete book</span>
+          </div>
+          <div class="option-pill">
+            <a :href="book.selfLink" target="_blank" class="optionButton-pill">JSON</a>
+          </div>
+          <div class="option-pill">
+            <a :href="book.infoLink" target="_blank" class="optionButton-pill">Info</a>
           </div>
         </div>
       </div>
@@ -128,10 +134,10 @@
 
       <div class="book-separator"></div>
 
-      <div class="book-attribute">
+      <!-- <div class="book-attribute">
         <div class="label">{{ "Self Link" }}</div>
         <div class="value">{{ book.selfLink }}</div>
-      </div>
+      </div> -->
 
       <div class="book-separator"></div>
 
@@ -172,15 +178,17 @@
 
       <div class="book-attribute">
         <div class="label">{{ "Language" }}</div>
-        <div class="value">{{ book.language }}</div>
+        <div class="value"> <!-- {{ book.language }} -->
+          <img :src="'https://flagsapi.com/' + book.language.toUpperCase() + '/flat/16.png'" width="20" height="20">
+        </div>
       </div>
 
       <div class="book-separator"></div>
 
-      <div class="book-attribute">
+      <!-- <div class="book-attribute">
         <div class="label">{{ "Info Link" }}</div>
         <div class="value">{{ book.infoLink }}</div>
-      </div>
+      </div> -->
 
       <div class="book-separator"></div>
 
@@ -459,5 +467,31 @@ export default {
 .bookTag-pill:hover {
   color: white;
 
+}
+
+.option-pill {
+  display: inline-block;
+  margin: 20px 10px 0 0;
+  padding: 6px 12px;
+  background: teal;
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: teal;
+  cursor: pointer;
+}
+
+.option-pill:hover {
+  background: teal;
+}
+
+.optionButton-pill {
+  color: black;
+  text-decoration: none;
+}
+
+.optionButton-pill:hover {
+  color: white;
 }
 </style>

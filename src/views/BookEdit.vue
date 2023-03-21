@@ -60,9 +60,21 @@
             </div>
         </div>
         <div class="book">
-            <div class="book-attribute">
+            <!-- <div class="book-attribute">
                 <div class="label">{{ "ID" }}</div>
                 <div class="value">{{ book.id }}</div>
+            </div> -->
+
+            <div class="book-attribute">
+                <div class="label">{{ "Options" }}</div>
+                <div>
+                    <div class="option-pill">
+                        <a :href="book.selfLink" target="_blank" class="optionButton-pill">JSON</a>
+                    </div>
+                    <div class="option-pill">
+                        <a :href="book.infoLink" target="_blank" class="optionButton-pill">Info</a>
+                    </div>
+                </div>
             </div>
 
             <div class="book-separator"></div>
@@ -120,10 +132,10 @@
 
             <div class="book-separator"></div>
 
-            <div class="book-attribute">
+            <!-- <div class="book-attribute">
                 <div class="label">{{ "Self Link" }}</div>
                 <div class="value">{{ book.selfLink }}</div>
-            </div>
+            </div> -->
 
             <div class="book-separator"></div>
 
@@ -143,7 +155,6 @@
 
             <div class="book-attribute">
                 <div class="label">{{ "Print Type" }}</div>
-                <div class="value">{{ book.printType }}</div>
                 <select v-model="book.printType">
                     <option disabled value="">Please select one</option>
                     <option>BOOK</option>
@@ -170,21 +181,23 @@
 
             <div class="book-attribute">
                 <div class="label">{{ "Language" }}</div>
-                <div class="value">{{ book.language }}</div>
+                <div class="value"> <!-- {{ book.language }} -->
+                    <img :src="'https://flagsapi.com/' + book.language.toUpperCase() + '/flat/16.png'" width="20"
+                        height="20">
+                </div>
             </div>
 
             <div class="book-separator"></div>
 
-            <div class="book-attribute">
+            <!-- <div class="book-attribute">
                 <div class="label">{{ "Info Link" }}</div>
                 <div class="value">{{ book.infoLink }}</div>
-            </div>
+            </div> -->
 
             <div class="book-separator"></div>
 
             <div class="book-attribute">
                 <div class="label">{{ "Read Status" }}</div>
-                <div class="value">{{ book.readStatus }}</div>
                 <select v-model="book.readStatus">
                     <option disabled value="">Please select one</option>
                     <option>UNREAD</option>
@@ -205,7 +218,6 @@
 
             <div class="book-attribute">
                 <div class="label">{{ "Personal Rating" }}</div>
-                <div class="value">{{ book.rating }}</div>
                 <select v-model="book.rating">
                     <option disabled value="">Please select one</option>
                     <option>ZERO</option>
@@ -284,18 +296,18 @@ export default {
                     }
                     this.fetchFavorite()
                     toast.success("Book is now a favorite!", {
-                    position: "bottom-right",
-                    timeout: 2000,
-                    closeOnClick: true,
-                    pauseOnFocusLoss: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    draggablePercent: 0.6,
-                    showCloseButtonOnHover: false,
-                    closeButton: "button",
-                    icon: true,
-                    rtl: false
-                });
+                        position: "bottom-right",
+                        timeout: 2000,
+                        closeOnClick: true,
+                        pauseOnFocusLoss: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        draggablePercent: 0.6,
+                        showCloseButtonOnHover: false,
+                        closeButton: "button",
+                        icon: true,
+                        rtl: false
+                    });
                     return response.json();
                 })
                 .catch((error) => {
@@ -555,6 +567,32 @@ input {
 
 .form {
     background: #f2f2f2;
+}
+
+.option-pill {
+    display: inline-block;
+    margin: 20px 10px 0 0;
+    padding: 6px 12px;
+    background: teal;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: teal;
+    cursor: pointer;
+}
+
+.option-pill:hover {
+    background: teal;
+}
+
+.optionButton-pill {
+    color: black;
+    text-decoration: none;
+}
+
+.optionButton-pill:hover {
+    color: white;
 }
 </style>
   
