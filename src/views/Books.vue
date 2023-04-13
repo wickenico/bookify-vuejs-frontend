@@ -150,7 +150,7 @@ export default {
               headers: headers
             })
           if (response.ok) {
-            toast.success("Book successfully deleted!", {
+            toast.success('Book ' + book.title + ' successfully deleted!', {
               position: "bottom-right",
               timeout: 2000,
               closeOnClick: true,

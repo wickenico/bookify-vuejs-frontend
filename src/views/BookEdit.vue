@@ -125,9 +125,7 @@
 
             <div class="book-attribute">
                 <div class="label">{{ "Pages" }}</div>
-                <div class="value">
-                    <input v-model="book.pages" type="number">
-                </div>
+                <div class="value">{{ book.pages }}</div>
             </div>
 
             <div class="book-separator"></div>
