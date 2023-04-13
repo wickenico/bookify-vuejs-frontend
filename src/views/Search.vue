@@ -19,11 +19,16 @@
             aria-hidden="true"></i></button>
       </div>
       <div v-if="bookAdded" class="book-added">
-        <router-link :to="{ name: 'BookDetails', params: { id: bookAdded.id } }">
-          <h1>Book successfully added click here! </h1>
-        </router-link>
-        <button class="btn btn-primary" @click="resetPage">Start new Search <i class="fa fa-refresh"
-            aria-hidden="true"></i></button>
+        <h1>Book successfully added! </h1>
+        <p><router-link :to="{ name: 'BookDetails', params: { id: bookAdded.id } }">
+            <button class="btn btn-primary">Go to Book Details <i class="fa fa-arrow-right"
+                aria-hidden="true"></i></button>
+          </router-link></p>
+        <p><router-link :to="{ name: 'Books' }">
+            <button class="btn btn-primary">Go to Books <i class="fa fa-list-ul" aria-hidden="true"></i></button>
+          </router-link></p>
+        <p><button class="btn btn-primary" @click="resetPage">Start new Search <i class="fa fa-refresh"
+              aria-hidden="true"></i></button></p>
       </div>
     </div>
     <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
