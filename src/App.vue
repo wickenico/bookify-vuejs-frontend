@@ -10,7 +10,8 @@
     <footer class="overlay">
       &copy; 2023 Bookify (Nico Wickersheim) &bull;
       <router-link to="/imprint" class="footer-link">Imprint</router-link> &bull;
-      <router-link to="/contact" class="footer-link">Contact</router-link>
+      <router-link to="/contact" class="footer-link">Contact</router-link> &bull;
+      <router-link to="/faq" class="footer-link">FAQ</router-link>
     </footer>
   </div>
 </template>
