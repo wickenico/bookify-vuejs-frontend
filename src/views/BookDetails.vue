@@ -299,6 +299,10 @@ export default {
         });
     },
 
+    confirm(message) {
+      return window.confirm(message);
+    },
+
     async fetchFavorite() {
       try {
         const headers = new Headers();
@@ -333,36 +337,38 @@ export default {
       }
     },
     async deleteBook(book) {
-      try {
-        const headers = new Headers();
-        if (sessionStorage.getItem('credentials')) {
-          headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
-          headers.append('Accept', 'application/json');
-        }
-        const response = await fetch(this.apiUrl + '/books/' + book.id,
-          {
-            method: 'DELETE',
-            headers: headers
-          })
+      if (this.confirm("Are you sure you want to delete this book?")) {
+        try {
+          const headers = new Headers();
+          if (sessionStorage.getItem('credentials')) {
+            headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+            headers.append('Accept', 'application/json');
+          }
+          const response = await fetch(this.apiUrl + '/books/' + book.id,
+            {
+              method: 'DELETE',
+              headers: headers
+            })
 
-        if (response.ok) {
-          toast.success("Book successfully deleted!", {
-            position: "bottom-right",
-            timeout: 2000,
-            closeOnClick: true,
-            pauseOnFocusLoss: true,
-            pauseOnHover: true,
-            draggable: true,
-            draggablePercent: 0.6,
-            showCloseButtonOnHover: false,
-            closeButton: "button",
-            icon: true,
-            rtl: false
-          });
-          router.push({ path: '/books' })
+          if (response.ok) {
+            toast.success("Book successfully deleted!", {
+              position: "bottom-right",
+              timeout: 2000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: false,
+              closeButton: "button",
+              icon: true,
+              rtl: false
+            });
+            router.push({ path: '/books' })
+          }
+        } catch (error) {
+          console.log(error.message)
         }
-      } catch (error) {
-        console.log(error.message)
       }
     }
   }

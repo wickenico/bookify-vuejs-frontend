@@ -41,9 +41,9 @@
               <img src="https://via.placeholder.com/200x300?text=No+Cover" alt="Book Cover Image">
             </div>
             <div>
-            <h2>{{ book.title }}</h2>
-            <p>{{ book.author }}</p>
-          </div>
+              <h2>{{ book.title }}</h2>
+              <p>{{ book.author }}</p>
+            </div>
             <div class="icons">
               <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
                 <span class="material-icons">edit</span>
@@ -65,6 +65,9 @@
 </template>
 
 <script>
+import { useToast } from "vue-toastification";
+const toast = useToast();
+
 export default {
   data() {
     return {
@@ -129,22 +132,43 @@ export default {
       this.sortAscending = '';
       this.sortDescending = false;
     },
-    deleteBook(book) {
-      const index = this.books.indexOf(book);
-      if (index > -1) {
-        this.books.splice(index, 1);
+    async deleteBook(book) {
+      if (this.confirm("Are you sure you want to delete this book?")) {
+        const index = this.books.indexOf(book);
+        if (index > -1) {
+          this.books.splice(index, 1);
+        }
+        try {
+          const headers = new Headers();
+          if (sessionStorage.getItem('credentials')) {
+            headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+            headers.append('Accept', 'application/json');
+          }
+          const response = await fetch(this.apiUrl + '/books/' + book.id,
+            {
+              method: 'DELETE',
+              headers: headers
+            })
+          if (response.ok) {
+            toast.success("Book successfully deleted!", {
+              position: "bottom-right",
+              timeout: 2000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: false,
+              closeButton: "button",
+              icon: true,
+              rtl: false
+            });
+            router.push({ path: '/books' })
+          }
+        } catch (error) {
+          console.log(error.message)
+        }
       }
-      const headers = new Headers();
-      if (sessionStorage.getItem('credentials')) {
-        headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
-        headers.append('Accept', 'application/json');
-      }
-      fetch(this.apiUrl + '/books/' + book.id,
-        {
-          method: 'DELETE',
-          headers: headers
-        })
-        .catch(err => console.log(err.message))
     },
     toggleSortAscending() {
       this.sortAscending = true;
@@ -153,6 +177,9 @@ export default {
     toggleSortDescending() {
       this.sortAscending = false;
       this.sortDescending = true;
+    },
+    confirm(message) {
+      return window.confirm(message);
     },
   },
   mounted() {
