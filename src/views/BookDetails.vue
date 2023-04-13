@@ -143,7 +143,7 @@
 
       <div class="book-attribute">
         <div class="label">{{ "Published Date" }}</div>
-        <div class="value">{{ book.publishedDate }}</div>
+        <div class="value">{{ publishedDate_formatted }}</div>
       </div>
 
       <div class="book-separator"></div>
@@ -201,7 +201,7 @@
 
       <div class="book-attribute">
         <div class="label">{{ "Added On" }}</div>
-        <div class="value">{{ book.addedOnDate }}</div>
+        <div class="value">{{ addedOnDate_formatted }}</div>
       </div>
 
       <div class="book-separator"></div>
@@ -232,6 +232,28 @@ export default {
       bookError: null,
       bookTags: [],
     }
+  },
+  computed: {
+    publishedDate_formatted() {
+      if (this.book) {
+        const date = new Date(this.book.publishedDate);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
+      }
+    },
+    addedOnDate_formatted() {
+      if (this.book) {
+        const date = new Date(this.book.addedOnDate);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${day}.${month}.${year} ${hours}:${minutes}`;
+      }
+    },
   },
   mounted() {
     const headers = new Headers();
