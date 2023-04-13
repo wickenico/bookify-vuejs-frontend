@@ -69,10 +69,10 @@
                 <div class="label">{{ "Options" }}</div>
                 <div>
                     <div class="option-pill">
-                        <a :href="book.selfLink" target="_blank" class="optionButton-pill">JSON</a>
+                        <a :href="book.selfLink" target="_blank" class="optionButton-pill"><i class="fa fa-code" aria-hidden="true"></i> JSON</a>
                     </div>
                     <div class="option-pill">
-                        <a :href="book.infoLink" target="_blank" class="optionButton-pill">Info</a>
+                        <a :href="book.infoLink" target="_blank" class="optionButton-pill"><i class="fa fa-info" aria-hidden="true"></i> Info</a>
                     </div>
                 </div>
             </div>

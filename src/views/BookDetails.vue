@@ -69,17 +69,17 @@
         <div>
           <div class="option-pill">
             <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
-              <span class="optionButton-pill">Edit book</span>
+              <span class="optionButton-pill"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
             </router-link>
           </div>
           <div class="option-pill">
-            <span class="optionButton-pill" @click.prevent="deleteBook(book)">Delete book</span>
+            <span class="optionButton-pill" @click.prevent="deleteBook(book)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</span>
           </div>
           <div class="option-pill">
-            <a :href="book.selfLink" target="_blank" class="optionButton-pill">JSON</a>
+            <a :href="book.selfLink" target="_blank" class="optionButton-pill"><i class="fa fa-code" aria-hidden="true"></i> JSON</a>
           </div>
           <div class="option-pill">
-            <a :href="book.infoLink" target="_blank" class="optionButton-pill">Info</a>
+            <a :href="book.infoLink" target="_blank" class="optionButton-pill"><i class="fa fa-info" aria-hidden="true"></i> Info</a>
           </div>
         </div>
       </div>
