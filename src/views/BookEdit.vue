@@ -69,10 +69,12 @@
                 <div class="label">{{ "Options" }}</div>
                 <div>
                     <div class="option-pill">
-                        <a :href="book.selfLink" target="_blank" class="optionButton-pill"><i class="fa fa-code" aria-hidden="true"></i> JSON</a>
+                        <a :href="book.selfLink" target="_blank" class="optionButton-pill"><i class="fa fa-code"
+                                aria-hidden="true"></i> JSON</a>
                     </div>
                     <div class="option-pill">
-                        <a :href="book.infoLink" target="_blank" class="optionButton-pill"><i class="fa fa-info" aria-hidden="true"></i> Info</a>
+                        <a :href="book.infoLink" target="_blank" class="optionButton-pill"><i class="fa fa-info"
+                                aria-hidden="true"></i> Info</a>
                     </div>
                 </div>
             </div>
@@ -108,8 +110,10 @@
             <div class="book-separator"></div>
 
             <div class="book-attribute">
-                <div class="label">{{ "Author" }}</div>
-                <div class="value">{{ book.author }}</div>
+                <div class="label">{{ "Authors" }}</div>
+                <div class="value">
+                    <div v-for="author in book.authors" :key="author">{{ author }}</div>
+                </div>
             </div>
 
             <div class="book-separator"></div>

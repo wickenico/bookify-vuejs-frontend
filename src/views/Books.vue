@@ -42,7 +42,7 @@
             </div>
             <div>
               <h2>{{ book.title }}</h2>
-              <p>{{ book.author }}</p>
+              <p>{{ book.authors.join(', ') }}</p>
             </div>
             <div class="icons">
               <router-link :to="{ name: 'BookEdit', params: { id: book.id } }">
