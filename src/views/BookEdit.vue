@@ -169,7 +169,9 @@
 
             <div class="book-attribute">
                 <div class="label">{{ "Category" }}</div>
-                <div class="value">{{ book.category }}</div>
+                <div class="value">
+                    <div v-for="category in book.categories" :key="category">{{ category }}</div>
+                </div>
             </div>
 
             <div class="book-separator"></div>
