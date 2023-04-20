@@ -107,6 +107,8 @@ export default {
     margin: 0 5px;
     color: grey;
     font-size: 18px;
+    border-bottom: 2px solid white;
+    padding-bottom: 4px;
 }
 
 .main-nav a:hover {
