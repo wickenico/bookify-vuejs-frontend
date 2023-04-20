@@ -14,7 +14,7 @@
           <img :src="searchResults.imageUrl" alt="Book Cover Image">
         </div>
         <h3>{{ searchResults.title }}</h3>
-        <p>{{ searchResults.author }}</p>
+        <p v-for="author in searchResults.authors" :key="author">{{ author }}</p>
         <button class="btn btn-primary" @click="addBook">Add book to library <i class="fa fa-floppy-o"
             aria-hidden="true"></i></button>
       </div>
