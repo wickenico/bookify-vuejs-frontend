@@ -221,6 +221,15 @@
             <div class="book-separator"></div>
 
             <div class="book-attribute">
+                <div class="label">{{ "Comment" }}</div>
+                <div class="value">
+                    <textarea v-model="book.comment" type="text" rows="5"></textarea>
+                </div>
+            </div>
+
+            <div class="book-separator"></div>
+
+            <div class="book-attribute">
                 <div class="label">{{ "Personal Rating" }}</div>
                 <select v-model="book.rating">
                     <option disabled value="">Please select one</option>
@@ -382,7 +391,7 @@ export default {
                 isbn13: this.book.isbn13,
                 title: this.book.title,
                 subtitle: this.book.subtitle,
-                author: this.book.author,
+                authors: this.book.authors,
                 publisher: this.book.publisher,
                 pages: this.book.pages,
                 imageUrl: this.book.imageUrl,
@@ -390,7 +399,7 @@ export default {
                 publishedDate: this.book.publishedDate,
                 description: this.book.description,
                 printType: this.book.printType,
-                category: this.book.category,
+                categories: this.book.categories,
                 maturityRating: this.book.maturityRating,
                 language: this.book.language,
                 infoLink: this.book.infoLink,

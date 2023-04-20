@@ -214,6 +214,13 @@
       <div class="book-separator"></div>
 
       <div class="book-attribute">
+        <div class="label">{{ "Comment" }}</div>
+        <div class="value">{{ book.comment }}</div>
+      </div>
+
+      <div class="book-separator"></div>
+
+      <div class="book-attribute">
         <div class="label">{{ "Personal Rating" }}</div>
         <div class="value">{{ book.rating }}</div>
       </div>
