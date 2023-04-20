@@ -83,11 +83,16 @@
 
             <div class="book-attribute">
                 <div class="label">{{ "Tags" }}</div>
-                <input type="text" v-model="tempBookTag" @keyup.enter="addBookTag" placeholder="Add Tag and press Enter...">
+                <div class="tag" v-if="addingTag">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </div>
+                <input type="text" v-model="tempBookTag" @keyup.enter="addBookTag" placeholder="Add Tag and press Enter..."
+                    :disabled="addingTag">
                 <div v-if="bookTags.length">
                     <div v-for="bookTag in bookTags" :key="bookTag.id" class="pill">
                         <router-link :to="{ name: 'TagDetails', params: { id: bookTag.id } }">
-                            <span class="bookTag-pill">{{ bookTag.name }}</span>
+                            <span class="bookTag-pill">{{ bookTag.name }} | <i class="fa fa-trash"
+                                    @click.stop.prevent="deleteBookTag(bookTag)"></i></span>
                         </router-link>
                     </div>
                 </div>
@@ -269,7 +274,8 @@ export default {
             isFavorite: null,
             bookError: null,
             bookTags: [],
-            tempBookTag: ''
+            tempBookTag: '',
+            addingTag: false
         }
     },
     mounted() {
@@ -433,6 +439,7 @@ export default {
 
         async addBookTag(e) {
             if (this.tempBookTag) {
+                this.addingTag = true;
                 if (!this.bookTags.includes(this.tempBookTag)) {
                     const headers = new Headers();
                     if (sessionStorage.getItem('credentials')) {
@@ -448,12 +455,49 @@ export default {
                         this.tempBookTag = '';
                         // Call the fetchBookTags method to update the bookTags array
                         this.fetchBookTags();
+                        this.addingTag = false;
                     } else {
                         console.error('Failed to add book tag');
+                        this.addingTag = false;
                     }
 
                 }
 
+            }
+        },
+        async deleteBookTag(bookTag) {
+            const index = this.bookTags.indexOf(bookTag);
+            if (index > -1) {
+                this.bookTags.splice(index, 1);
+            }
+            try {
+                const headers = new Headers();
+                if (sessionStorage.getItem('credentials')) {
+                    headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
+                    headers.append('Accept', 'application/json');
+                }
+                const response = await fetch(this.apiUrl + '/books/' + this.id + '/tags/' + bookTag.id + '/delete',
+                    {
+                        method: 'DELETE',
+                        headers: headers
+                    })
+                if (response.ok) {
+                    toast.success('Tag successfully deleted!', {
+                        position: "bottom-right",
+                        timeout: 2000,
+                        closeOnClick: true,
+                        pauseOnFocusLoss: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        draggablePercent: 0.6,
+                        showCloseButtonOnHover: false,
+                        closeButton: "button",
+                        icon: true,
+                        rtl: false
+                    });
+                }
+            } catch (error) {
+                console.log(error.message)
             }
         }
     }
@@ -626,6 +670,10 @@ input {
 
 .optionButton-pill:hover {
     color: white;
+}
+
+.fa-trash:hover {
+    color: red
 }
 </style>
   
