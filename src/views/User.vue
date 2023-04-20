@@ -1,29 +1,29 @@
 <template>
     <h1>User</h1>
     <div v-if="user">
-    <form @submit.prevent="handleSubmit">
-        <label>Fullname: </label>
-        <input type="text" required v-model="user.fullName" readonly>
+        <form @submit.prevent="handleSubmit">
+            <label>Fullname: </label>
+            <span type="text"> {{ user.fullName }} </span>
 
-        <label>Email: </label>
-        <input type="email" required v-model="user.email" readonly>
+            <label>Email: </label>
+            <span type="email"> {{ user.email }} </span>
 
-        <label>Username: </label>
-        <input type="text" required v-model="user.username" readonly>
+            <label>Username: </label>
+            <span type="text"> {{ user.username }} </span>
 
-        <!-- <div v-if="passwordError" class="error">{{ passwordError }}</div> -->
+            <!-- <div v-if="passwordError" class="error">{{ passwordError }}</div> -->
 
-        <router-link :to="{ name: 'UserEdit', params: { id: user.id } }">
+            <router-link :to="{ name: 'UserEdit', params: { id: user.id } }">
+                <div class="submit" @click="handleSubmit">
+                    <button>Edit</button>
+                </div>
+            </router-link>
+
             <div class="submit" @click="handleSubmit">
-                <button>Edit</button>
+                <button>Change Password</button>
             </div>
-        </router-link>
-
-        <div class="submit" @click="handleSubmit">
-            <button>Change Password</button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </template>
 
 <script>
@@ -75,7 +75,7 @@ label {
     font-weight: bold;
 }
 
-input,
+span,
 select {
     display: block;
     padding: 10px 6px;
