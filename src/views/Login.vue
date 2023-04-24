@@ -47,19 +47,19 @@ export default {
                 });
                 if (!response.ok) {
                     toast.error("Error logged in!", {
-                    position: "bottom-right",
-                    timeout: 5000,
-                    closeOnClick: true,
-                    pauseOnFocusLoss: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    draggablePercent: 0.6,
-                    showCloseButtonOnHover: false,
-                    closeButton: "button",
-                    icon: true,
-                    rtl: false
-                });
-                throw new Error('Login failed');
+                        position: "bottom-right",
+                        timeout: 5000,
+                        closeOnClick: true,
+                        pauseOnFocusLoss: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        draggablePercent: 0.6,
+                        showCloseButtonOnHover: false,
+                        closeButton: "button",
+                        icon: true,
+                        rtl: false
+                    });
+                    throw new Error('Login failed');
                 }
                 sessionStorage.setItem('credentials', btoa(this.username + ':' + this.password));
                 const expiration = new Date().getTime() + 60 * 60 * 1000 // expiration time: 1 hour
@@ -71,7 +71,7 @@ export default {
 
                 toast.success("Successfully logged in!", {
                     position: "bottom-right",
-                    timeout: 5000,
+                    timeout: 2000,
                     closeOnClick: true,
                     pauseOnFocusLoss: true,
                     pauseOnHover: true,

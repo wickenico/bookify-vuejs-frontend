@@ -20,6 +20,7 @@ import Contact from '../views/Contact.vue'
 import BugReport from '../views/BugReport.vue'
 import Settings from '../views/Settings.vue'
 import FAQ from '../views/FAQ.vue'
+import PasswordEdit from '../views/PasswordEdit.vue'
 
 const routes = [
   {
@@ -101,6 +102,12 @@ const routes = [
     path: '/users/edit/:id',
     name: 'UserEdit',
     component: UserEdit,
+    props: true
+  },
+  {
+    path: '/users/password/edit/:id',
+    name: 'PasswordEdit',
+    component: PasswordEdit,
     props: true
   },
   {

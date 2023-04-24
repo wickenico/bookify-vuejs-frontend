@@ -14,14 +14,17 @@
             <!-- <div v-if="passwordError" class="error">{{ passwordError }}</div> -->
 
             <router-link :to="{ name: 'UserEdit', params: { id: user.id } }">
-                <div class="submit" @click="handleSubmit">
+                <div class="submit">
                     <button>Edit</button>
                 </div>
             </router-link>
 
-            <div class="submit" @click="handleSubmit">
+            <router-link :to="{ name: 'PasswordEdit', params: { id: user.id } }">
+            <div class="submit">
                 <button>Change Password</button>
             </div>
+        </router-link>
+
         </form>
     </div>
 </template>
