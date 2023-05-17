@@ -20,10 +20,10 @@
             </router-link>
 
             <router-link :to="{ name: 'PasswordEdit', params: { id: user.id } }">
-            <div class="submit">
-                <button>Change Password</button>
-            </div>
-        </router-link>
+                <div class="submit">
+                    <button>Change Password</button>
+                </div>
+            </router-link>
 
         </form>
     </div>
@@ -86,7 +86,7 @@ select {
     box-sizing: border-box;
     border: none;
     border-bottom: 1px solid teal;
-    color: teal;
+    color: black;
 }
 
 button {
