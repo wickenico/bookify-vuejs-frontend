@@ -1,5 +1,8 @@
 <template>
-    <div v-if="book">
+    <div v-if="isLoading">
+        <p>Loading book details ...</p>
+    </div>
+    <div v-else-if="book">
         <div class="book-info">
             <div v-if="book.imageUrl && book.imageUrl !== 'null'" class="book-cover">
                 <img :src="book.imageUrl" alt="Book Cover Image">
@@ -256,7 +259,7 @@
 
     </div>
     <div v-else>
-        <p>Loading book details ...</p>
+        <p>Book not found.</p>
     </div>
 </template>
   
@@ -275,7 +278,9 @@ export default {
             bookError: null,
             bookTags: [],
             tempBookTag: '',
-            addingTag: false
+            addingTag: false,
+            bookNotFound: false,
+            isLoading: false
         }
     },
     mounted() {
@@ -284,14 +289,25 @@ export default {
             headers.append('Authorization', 'Basic ' + sessionStorage.getItem('credentials'));
             headers.append('Accept', 'application/json');
         }
+        this.isLoading = true;
         fetch(this.apiUrl + '/books/' + this.id, {
             headers: headers
         })
             .then(res => res.json())
-            .then(data => this.book = data)
-            .catch(err => console.log(err.message)),
-            this.fetchFavorite();
-        this.fetchBookTags();
+            .then(data => {
+                this.isLoading = false;
+                if (!data) {
+                    this.bookNotFound = true; // Set bookNotFound to true if no book is found
+                } else {
+                    this.book = data;
+                    this.fetchFavorite();
+                    this.fetchBookTags();
+                }
+            })
+            .catch(err => {
+                console.log(err.message);
+                this.isLoading = false; // Set isLoading to false in case of an error
+            });
 
     },
     computed: {

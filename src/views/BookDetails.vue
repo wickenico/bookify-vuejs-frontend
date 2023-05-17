@@ -228,6 +228,13 @@
         <div class="value">{{ book.rating }}</div>
       </div>
 
+      <div class="book-separator"></div>
+
+      <div class="book-attribute">
+        <div class="label">{{ }}</div>
+        <div class="value">{{ }}</div>
+      </div>
+
     </div>
   </div>
   <div v-else>
