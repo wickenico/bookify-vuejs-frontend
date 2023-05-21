@@ -1,7 +1,7 @@
 <template>
   <div class="switch-container">
     <label class="switch">
-      <input type="checkbox" :checked="isDarkMode" @change="$emit('toggle-dark-mode')">
+      <input type="checkbox" :checked="isDarkMode" @change="$emit('toggle-dark-mode', $event.target.checked)">
       <span class="slider"></span>
     </label>
     <i class="material-icons switch-icon">{{ isDarkMode ? 'nightlight_round' : 'wb_sunny' }}</i>
