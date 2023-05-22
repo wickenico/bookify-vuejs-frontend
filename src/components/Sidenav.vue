@@ -1,7 +1,10 @@
 <template>
     <nav class="main-nav">
         <div>
-            <h1>Bookify</h1>
+            <div class="logo-container">
+                <img src="../assets/dark_with_white_background.jpg" alt="Bookify Logo" class="logo" />
+                <h1>Bookify</h1>
+            </div>
             <p>Digitalize your Bookshelf.</p>
             <!-- Dark Mode Switch -->
             <Switch :isDarkMode="isDarkMode" @toggle-dark-mode="toggleDarkMode" />
@@ -24,13 +27,15 @@
             </div>
         </div>
         <footer class="sidenav-footer">
-            <div class="footer-row">
-                <router-link to="/imprint" class="footer-link">Imprint</router-link>
-                <router-link to="/contact" class="footer-link">Contact</router-link>
-                <router-link to="/faq" class="footer-link">FAQ</router-link>
-            </div>
-            <div class="footer-row">
-                <span class="footer-text">&copy; 2023 Bookify (Nico Wickersheim)</span>
+            <div class="footer-content">
+                <div class="footer-row">
+                    <router-link to="/imprint" class="footer-link">Imprint</router-link>
+                    <router-link to="/contact" class="footer-link">Contact</router-link>
+                    <router-link to="/faq" class="footer-link">FAQ</router-link>
+                </div>
+                <div class="footer-row">
+                    <div class="footer-text">&copy; 2023 Bookify (Nico Wickersheim)</div>
+                </div>
             </div>
         </footer>
     </nav>
@@ -147,6 +152,7 @@ export default {
     background-color: white;
     padding: 20px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
 }
 
 .main-nav h1 {
@@ -219,17 +225,28 @@ a.router-link-active .material-icons {
 }
 
 .sidenav-footer {
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     color: teal;
     font-size: 12px;
+    padding: 10px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .footer-row {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 
 .footer-text {
@@ -237,13 +254,14 @@ a.router-link-active .material-icons {
 }
 
 .footer-link {
-    color: teal;
-    font-size: 14px !important;
+    color: black !important;
+    font-size: 12px !important;
+    /* Update the font size here */
     margin-right: 10px;
 }
 
 .footer-link:hover {
-    color: black;
+    color: teal !important;
 }
 
 .icons {
@@ -252,6 +270,19 @@ a.router-link-active .material-icons {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    height: 30px;
+    /* Adjust the height as needed */
+    margin-right: 5x;
+    /* Add margin to create spacing between the logo and heading */
 }
 </style>
   
