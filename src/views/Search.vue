@@ -31,7 +31,9 @@
               aria-hidden="true"></i></button></p>
       </div>
     </div>
-    <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
+    <div v-if="showBarcodeScanner">
+      <StreamBarcodeReader ref="barcodeReader" @decode="onDecode" @loaded="onLoaded"></StreamBarcodeReader>
+    </div>
   </div>
 </template>
 
@@ -51,6 +53,7 @@ export default {
       searchResults: null,
       searchError: null,
       bookAdded: null,
+      showBarcodeScanner: true
     };
   },
   methods: {
@@ -130,7 +133,18 @@ export default {
       console.log(result)
       this.searchQuery = result;
       this.searchBooks();
-      this.$refs.barcodeReader.stop();
+      this.$nextTick(() => {
+        this.$refs.barcodeReader.$nextTick(() => {
+          if (typeof this.$refs.barcodeReader.stop === 'function') {
+            this.$refs.barcodeReader.stop();
+          }
+          this.showBarcodeScanner = false; // Hide the barcode scanner window
+        });
+      });
+    },
+    onError(error) {
+      console.error('Barcode reader error:', error);
+      // Handle the error, e.g., display an error message
     },
     onLoaded(result) { console.log(result) },
     resetPage() {
