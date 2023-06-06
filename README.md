@@ -25,5 +25,22 @@ npm run serve
 npm run build
 ```
 
+> **Note**
+Backend: https://github.com/wickenico/bookify-ktor-backend
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Future Tasks
+- Admin View
+- Language chooser
+- Mapper for countries
+- General error handling
+- Refactor search UX
+- Dashboard as Homescreen
+
+## Related
+
+## Support
+
+## License
