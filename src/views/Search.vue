@@ -56,6 +56,9 @@ export default {
       showBarcodeScanner: true
     };
   },
+  mounted() {
+    checkCameraSettings();
+  },
   methods: {
     searchBooks() {
       if (!this.searchQuery) {
@@ -149,6 +152,29 @@ export default {
     onLoaded(result) { console.log(result) },
     resetPage() {
       window.location.reload();
+    },
+    // Check camera access permission
+    async checkCameraAccess() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        // Camera access is allowed
+        stream.getTracks().forEach(track => track.stop());
+        return true;
+      } catch (error) {
+        // Camera access is denied or an error occurred
+        return false;
+      }
+    },
+    // Usage
+    async checkCameraSettings() {
+      const cameraAccessAllowed = await checkCameraAccess();
+      if (cameraAccessAllowed) {
+        console.log('Camera access is allowed.');
+        // Perform actions when camera access is allowed
+      } else {
+        console.log('Camera access is denied.');
+        // Perform actions when camera access is denied
+      }
     }
   }
 };
