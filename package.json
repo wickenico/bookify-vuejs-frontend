@@ -21,7 +21,7 @@
     "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "semantic-release": "^20.1.1"
+    "semantic-release": "^23.0.0"
   },
   "repository": {
     "type": "git",
