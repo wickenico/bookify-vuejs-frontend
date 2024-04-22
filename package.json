@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
-    "core-js": "^3.36.1",
+    "core-js": "^3.37.0",
     "register-service-worker": "^1.7.2",
     "vue": "^3.4.21",
     "vue-barcode-reader": "^1.0.3",
